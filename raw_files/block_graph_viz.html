@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01_삼각함수 반각 공식.txt - block graph</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+  svg: { fontCache: 'global' },
+  startup: { typeset: false }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+* { box-sizing:border-box; }
+html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+body { font-family:Inter,Segoe UI,Arial,sans-serif; background:#0b0f1a; color:#e5e7eb; }
+#topbar { height:54px; display:flex; align-items:center; gap:18px; padding:0 18px; background:#111827; border-bottom:1px solid #263044; }
+#title { font-weight:750; font-size:15px; }
+#meta { color:#9ca3af; font-size:12px; }
+#legend { margin-left:auto; display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+.legend-item { display:flex; align-items:center; gap:5px; color:#aab2c5; font-size:11px; }
+.legend-line { width:18px; height:3px; border-radius:999px; }
+#stage { position:relative; height:calc(100vh - 54px); overflow:hidden; cursor:grab; }
+#world { position:absolute; inset:0; transform-origin:0 0; }
+#edge-svg { position:absolute; inset:0; width:2400px; height:1200px; pointer-events:none; overflow:visible; }
+#block-layer { position:absolute; inset:0; }
+.block-card { position:absolute; width:330px; height:286px; background:#202738; border:1px solid #55627a; border-radius:8px; overflow:hidden; box-shadow:0 18px 38px #0008; cursor:grab; }
+.block-card:active { cursor:grabbing; }
+.block-card.focused { border-color:#cbd5e1; box-shadow:0 0 0 2px #e5e7eb33, 0 18px 42px #000a; }
+.head { height:78px; padding:14px 16px 10px; background:#151b28; user-select:none; }
+.block-id { font:12px Consolas,monospace; color:#7d8798; margin-bottom:6px; }
+.block-title { color:#f8fafc; font-weight:800; font-size:17px; line-height:1.25; max-height:42px; overflow:hidden; }
+.micro { position:relative; height:166px; background:#252d3f; border-top:1px solid #2f394d; border-bottom:1px solid #2f394d; }
+.micro svg { width:100%; height:100%; display:block; }
+.micro-empty { height:166px; display:flex; align-items:center; justify-content:center; color:#7d8798; font-size:12px; background:#252d3f; }
+.micro-node-label { width:86px; max-height:26px; color:#e5e7eb; font-size:9px; line-height:1.12; text-align:center; overflow:hidden; }
+.micro-node-label mjx-container { display:inline-block !important; max-width:82px !important; max-height:24px !important; overflow:hidden !important; font-size:80% !important; }
+.micro-node-label mjx-container svg { max-width:82px !important; max-height:22px !important; }
+.foot { min-height:42px; padding:8px 12px; display:flex; flex-wrap:wrap; align-content:flex-start; gap:5px; background:#171e2c; }
+.tag { max-width:145px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:3px 8px; border-radius:999px; background:#374151; color:#d1d5db; font-size:12px; }
+.edge-label { font-size:11px; font-weight:700; paint-order:stroke; stroke:#0b0f1a; stroke-width:4px; }
+.micro-label { font-size:9px; fill:#e5e7eb; paint-order:stroke; stroke:#252d3f; stroke-width:3px; pointer-events:none; }
+.micro-node { fill:#d8dee9; stroke:#111827; stroke-width:1.2; }
+.hint { position:absolute; left:14px; bottom:12px; color:#7d8798; font-size:12px; pointer-events:none; }
+#raw-panel { position:absolute; top:14px; right:14px; width:420px; max-height:calc(100% - 28px); display:none; background:#111827f2; border:1px solid #3b475e; border-radius:8px; box-shadow:0 18px 44px #000b; overflow:hidden; z-index:20; }
+#raw-title { padding:12px 42px 8px 14px; font-weight:800; color:#f8fafc; background:#151b28; border-bottom:1px solid #2f394d; position:relative; }
+#raw-close { position:absolute; top:8px; right:10px; border:1px solid #4b5563; background:#1f2937; color:#f8fafc; border-radius:5px; padding:2px 7px; cursor:pointer; }
+#raw-body { padding:13px 15px 16px; color:#dbe2ef; font-size:13px; line-height:1.65; overflow:auto; max-height:calc(100vh - 126px); }
+#raw-body h1, #raw-body h2, #raw-body h3, #raw-body h4 { margin:14px 0 8px; color:#f8fafc; line-height:1.25; }
+#raw-body h1 { font-size:20px; } #raw-body h2 { font-size:18px; } #raw-body h3 { font-size:16px; } #raw-body h4 { font-size:14px; }
+#raw-body p { margin:9px 0; }
+#raw-body ul { margin:8px 0 8px 20px; padding:0; }
+#raw-body li { margin:5px 0; }
+#raw-body strong { color:#ffffff; font-weight:800; }
+#raw-body hr { border:0; border-top:1px solid #334155; margin:14px 0; }
+#raw-body pre { white-space:pre-wrap; overflow:auto; background:#0b1020; border:1px solid #273244; border-radius:6px; padding:9px; }
+#raw-body .math-block { margin:10px 0; overflow-x:auto; }
+#micro-view { position:absolute; inset:0; display:none; background:#0b0f1af5; z-index:30; }
+#micro-toolbar { height:54px; display:flex; align-items:center; gap:14px; padding:0 16px; background:#111827; border-bottom:1px solid #2f394d; }
+#back-btn { border:1px solid #4b5563; background:#1f2937; color:#f8fafc; border-radius:6px; padding:7px 12px; cursor:pointer; }
+#micro-title { font-weight:800; }
+#micro-canvas { width:100%; height:calc(100% - 54px); }
+#micro-canvas svg { width:100%; height:100%; display:block; }
+#micro-canvas .big-node { fill:#d8dee9; stroke:#111827; stroke-width:2; }
+#micro-canvas .big-label { fill:#f8fafc; font-size:14px; paint-order:stroke; stroke:#0b0f1a; stroke-width:5px; }
+.big-node-label { width:230px; max-height:54px; color:#f8fafc; font-size:14px; line-height:1.2; text-align:center; overflow:hidden; }
+.big-node-label mjx-container { display:inline-block !important; max-width:220px !important; max-height:48px !important; overflow:hidden !important; font-size:78% !important; }
+.big-node-label mjx-container svg { max-width:220px !important; max-height:44px !important; }
+.big-node-group { cursor:grab; }
+.big-node-group:active { cursor:grabbing; }
+</style>
+</head>
+<body>
+<div id="topbar">
+  <div id="title">01_삼각함수 반각 공식.txt</div>
+  <div id="meta">5 blocks · 6 block edges · 46 micro nodes · 79 micro edges</div>
+  <div id="legend"></div>
+</div>
+<div id="stage">
+  <div id="world">
+    <svg id="edge-svg"><defs id="defs"></defs><g id="edges"></g><g id="labels"></g></svg>
+    <div id="block-layer"></div>
+  </div>
+  <div class="hint">Drag block headers to move blocks. Wheel to zoom, drag empty space to pan.</div>
+  <div id="raw-panel"><div id="raw-title"><button id="raw-close">x</button><span id="raw-title-text"></span></div><div id="raw-body"></div></div>
+  <div id="micro-view">
+    <div id="micro-toolbar"><button id="back-btn">Back</button><div id="micro-title"></div></div>
+    <div id="micro-canvas"></div>
+  </div>
+</div>
+<script>
+const BLOCKS = [{"id": "block_001", "type": "block", "block_id": "block_001", "title": "삼각함수 반각 공식", "summary": "sin x, cos x, tan x를 t = tan(x/2)로 표현하는 반각 공식을 제시하고 표로 정리했습니다. 분모가 0이 될 수 있는 경우 등 유의사항도 언급되었습니다.", "key_concepts": ["반각 공식", "t = tan(x/2)", "sin x, cos x, tan x 표현"], "order_index": 0, "source_type": "chat", "micro_graph": {"nodes": [{"name": "반각 공식", "type": "Concept", "source_chunk_id": 0, "description": "삼각함수 sin x, cos x, tan x를 t = tan(x/2)로 나타내는 공식 집합.", "id": "block_001::node_000", "label": "반각 공식"}, {"name": "t = \\tan\\left(\\frac{x}{2}\\right)", "type": "Formula", "source_chunk_id": 0, "description": "변수 치환 정의 (t를 x/2의 탄젠트로 둠).", "id": "block_001::node_001", "label": "t = \\tan\\left(\\frac{x}{2}\\right)"}, {"name": "\\sin x = \\frac{2t}{1 + t^2}", "type": "Formula", "source_chunk_id": 0, "description": "반각 공식을 이용한 sin x의 표현.", "id": "block_001::node_002", "label": "\\sin x = \\frac{2t}{1 + t^2}"}, {"name": "\\cos x = \\frac{1 - t^2}{1 + t^2}", "type": "Formula", "source_chunk_id": 1, "description": "반각 공식을 이용한 cos x의 표현.", "id": "block_001::node_003", "label": "\\cos x = \\frac{1 - t^2}{1 + t^2}"}, {"name": "\\tan x = \\frac{2t}{1 - t^2}", "type": "Formula", "source_chunk_id": 1, "description": "반각 공식을 이용한 tan x의 표현 (단, 분모 주의).", "id": "block_001::node_004", "label": "\\tan x = \\frac{2t}{1 - t^2}"}, {"name": "t \\ne \\pm 1", "type": "Problem", "source_chunk_id": 2, "description": "tan x 표현에서 분모가 0이 되지 않도록 하는 조건.", "id": "block_001::node_005", "label": "t \\ne \\pm 1"}, {"name": "분모가 0이 되어 정의되지 않을 수 있습니다", "type": "Problem", "source_chunk_id": 3, "description": "일부 각(예: 0, π 등)에서 분모가 0이 되어 표현이 정의되지 않을 수 있음(일반적 유의사항).", "id": "block_001::node_006", "label": "분모가 0이 되어 정의되지 않을 수 있습니다"}, {"name": "x가 π 또는 그 배수일 경우", "type": "Problem", "source_chunk_id": 3, "description": "t = tan(x/2)이므로 x가 특정 각(예: π 또는 그 배수)일 때 유의해야 함.", "id": "block_001::node_007", "label": "x가 π 또는 그 배수일 경우"}], "edges": [{"target": "block_001::node_001", "type": "defines", "source_chunk_id": 0, "description": "반각 공식의 출발 정의로서 t를 도입함.", "evidence": "t = \\tan\\left(\\frac{x}{2}\\right)", "confidence": 0.9, "id": "block_001::edge_000", "source": "block_001::node_000", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_001::node_000"}, {"target": "block_001::node_002", "type": "defines", "source_chunk_id": 0, "description": "반각 공식이 sin x 표현을 제시함.", "evidence": "\\sin x = \\frac{2t}{1 + t^2}", "confidence": 0.9, "id": "block_001::edge_001", "source": "block_001::node_000", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_001::node_000"}, {"target": "block_001::node_003", "type": "defines", "source_chunk_id": 1, "description": "반각 공식이 cos x 표현을 제시함.", "evidence": "\\cos x = \\frac{1 - t^2}{1 + t^2}", "confidence": 0.9, "id": "block_001::edge_002", "source": "block_001::node_000", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_001::node_000"}, {"target": "block_001::node_004", "type": "defines", "source_chunk_id": 1, "description": "반각 공식이 tan x 표현을 제시함.", "evidence": "\\tan x = \\frac{2t}{1 - t^2}", "confidence": 0.9, "id": "block_001::edge_003", "source": "block_001::node_000", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_001::node_000"}, {"target": "block_001::node_001", "type": "uses", "source_chunk_id": 0, "description": "sin 표현이 t(=tan(x/2))를 변수로 사용함.", "evidence": "\\sin x = \\frac{2t}{1 + t^2}", "confidence": 0.8, "id": "block_001::edge_004", "source": "block_001::node_002", "label": "uses", "style": {"color": "#16a085"}, "start": "block_001::node_002"}, {"target": "block_001::node_001", "type": "uses", "source_chunk_id": 1, "description": "cos 표현이 t(=tan(x/2))를 변수로 사용함.", "evidence": "\\cos x = \\frac{1 - t^2}{1 + t^2}", "confidence": 0.8, "id": "block_001::edge_005", "source": "block_001::node_003", "label": "uses", "style": {"color": "#16a085"}, "start": "block_001::node_003"}, {"target": "block_001::node_001", "type": "uses", "source_chunk_id": 1, "description": "tan 표현이 t(=tan(x/2))를 변수로 사용함.", "evidence": "\\tan x = \\frac{2t}{1 - t^2}", "confidence": 0.8, "id": "block_001::edge_006", "source": "block_001::node_004", "label": "uses", "style": {"color": "#16a085"}, "start": "block_001::node_004"}, {"target": "block_001::node_005", "type": "requires", "source_chunk_id": 2, "description": "tan 표현의 분모가 0이 되지 않기 위한 조건.", "evidence": "(단, \\( t \\ne \\pm 1 \\))", "confidence": 0.9, "id": "block_001::edge_007", "source": "block_001::node_004", "label": "requires", "style": {"color": "#c0392b"}, "start": "block_001::node_004"}, {"target": "block_001::node_006", "type": "causes", "source_chunk_id": 3, "description": "특정 각에서 분모가 0이 되는 상황을 초래함.", "evidence": "이 공식들은 x가 특정 각(예: 0, π 등)일 때 분모가 0이 되어 정의되지 않을 수 있습니다.", "confidence": 0.9, "id": "block_001::edge_008", "source": "block_001::node_007", "label": "causes", "style": {"color": "#c0392b"}, "start": "block_001::node_007"}, {"target": "block_001::node_002", "type": "causes", "source_chunk_id": 3, "description": "분모가 0이 되는 경우 해당 표현이 정의되지 않음(유의사항).", "evidence": "이 공식들은 x가 특정 각(예: 0, π 등)일 때 분모가 0이 되어 정의되지 않을 수 있습니다.", "confidence": 0.8, "id": "block_001::edge_009", "source": "block_001::node_006", "label": "causes", "style": {"color": "#c0392b"}, "start": "block_001::node_006"}, {"target": "block_001::node_003", "type": "causes", "source_chunk_id": 3, "description": "분모가 0이 되는 경우 해당 표현이 정의되지 않음(유의사항).", "evidence": "이 공식들은 x가 특정 각(예: 0, π 등)일 때 분모가 0이 되어 정의되지 않을 수 있습니다.", "confidence": 0.8, "id": "block_001::edge_010", "source": "block_001::node_006", "label": "causes", "style": {"color": "#c0392b"}, "start": "block_001::node_006"}, {"target": "block_001::node_004", "type": "causes", "source_chunk_id": 3, "description": "분모가 0이 되는 경우 해당 표현이 정의되지 않음(유의사항).", "evidence": "이 공식들은 x가 특정 각(예: 0, π 등)일 때 분모가 0이 되어 정의되지 않을 수 있습니다.", "confidence": 0.8, "id": "block_001::edge_011", "source": "block_001::node_006", "label": "causes", "style": {"color": "#c0392b"}, "start": "block_001::node_006"}]}, "metrics": {"node_count": 8, "edge_count": 12, "node_type_counts": {"Concept": 1, "Formula": 4, "Problem": 3}, "edge_type_counts": {"defines": 4, "uses": 3, "requires": 1, "causes": 4}}, "turn_range": [0, 54], "extraction_status": {"ok": true}}, {"id": "block_002", "type": "block", "block_id": "block_002", "title": "Complex validity of half-angle formulas", "summary": "Confirmed that the half-angle identities hold for complex x because the underlying definitions (via exponentials) and algebraic manipulations extend to the complex plane. The response also warned about poles, denominators becoming zero, and multivaluedness when inverting functions like arctan.", "key_concepts": ["complex extension", "entire functions", "poles and branch cuts", "multivalued inverse"], "order_index": 1, "source_type": "chat", "micro_graph": {"nodes": [{"name": "\\sin x = \\frac{2t}{1 + t^2},\\quad \\cos x = \\frac{1 - t^2}{1 + t^2},\\quad \\tan x = \\frac{2t}{1 - t^2} \\quad \\text{where } t = \\tan\\left(\\frac{x}{2}\\right)", "type": "Formula", "source_chunk_id": 1, "description": "Half-angle/trigonometric identities expressed in terms of t = tan(x/2).", "keywords": ["half-angle", "trigonometric identities"], "id": "block_002::node_000", "label": "\\sin x = \\frac{2t}{1 + t^2},\\quad \\cos x = \\frac{1 - t^2}{1 + t^2},\\quad \\tan x = \\frac{2t}{1 - t^2} \\quad \\text{where } t = \\tan\\left(\\frac{x}{2}\\right)"}, {"name": "t = \\tan\\left(\\frac{x}{2}\\right)", "type": "Formula", "source_chunk_id": 1, "description": "Definition of the substitution variable t used in the half-angle identities.", "id": "block_002::node_001", "label": "t = \\tan\\left(\\frac{x}{2}\\right)"}, {"name": "complex x", "type": "Concept", "source_chunk_id": 0, "description": "The variable x considered as a complex number (complex variable).", "keywords": ["complex", "variable"], "id": "block_002::node_002", "label": "complex x"}, {"name": "\\sin z = \\frac{e^{iz} - e^{-iz}}{2i}, \\quad \\cos z = \\frac{e^{iz} + e^{-iz}}{2}", "type": "Formula", "source_chunk_id": 2, "description": "Exponential definitions of sine and cosine extended to complex argument z.", "id": "block_002::node_003", "label": "\\sin z = \\frac{e^{iz} - e^{-iz}}{2i}, \\quad \\cos z = \\frac{e^{iz} + e^{-iz}}{2}"}, {"name": "Trigonometric functions", "type": "Concept", "source_chunk_id": 2, "description": "Sine, cosine, tangent and related functions, considered in the complex domain.", "id": "block_002::node_004", "label": "Trigonometric functions"}, {"name": "Entire functions", "type": "Concept", "source_chunk_id": 2, "description": "Functions analytic everywhere in the complex plane (e.g., sin and cos as defined via exponentials).", "id": "block_002::node_005", "label": "Entire functions"}, {"name": "Algebraic manipulations", "type": "Method", "source_chunk_id": 3, "description": "Purely algebraic derivations (e.g., using half-angle formulas) used to obtain the identities.", "id": "block_002::node_006", "label": "Algebraic manipulations"}, {"name": "Poles and branch cuts", "type": "Problem", "source_chunk_id": 5, "description": "Singularities and branch-structure issues to watch for when extending identities to complex x.", "id": "block_002::node_007", "label": "Poles and branch cuts"}, {"name": "Poles of \\tan\\left(\\frac{x}{2}\\right) at \\frac{x}{2} = \\frac{\\pi}{2} + n\\pi, i.e., x = \\pi + 2n\\pi", "type": "Concept", "source_chunk_id": 5, "description": "Locations in the complex plane where tan(x/2) has poles (as noted in the text).", "id": "block_002::node_008", "label": "Poles of \\tan\\left(\\frac{x}{2}\\right) at \\frac{x}{2} = \\frac{\\pi}{2} + n\\pi, i.e., x = \\pi + 2n\\pi"}, {"name": "Denominator zeros: 1 + t^2 = 0, 1 - t^2 = 0", "type": "Formula", "source_chunk_id": 5, "description": "Points where denominators in the half-angle formulas vanish, causing singular behavior.", "id": "block_002::node_009", "label": "Denominator zeros: 1 + t^2 = 0, 1 - t^2 = 0"}, {"name": "Multivaluedness of inverse functions (\\tan^{-1}(z), logarithms)", "type": "Concept", "source_chunk_id": 6, "description": "Inverse complex functions are multivalued; special care is needed when inverting relations.", "id": "block_002::node_010", "label": "Multivaluedness of inverse functions (\\tan^{-1}(z), logarithms)"}, {"name": "Validity of half-angle identities for complex x", "type": "Concept", "source_chunk_id": 7, "description": "Conclusion that the identities hold for complex x but require attention to singularities and branches.", "id": "block_002::node_011", "label": "Validity of half-angle identities for complex x"}, {"name": "Complex domain", "type": "Concept", "source_chunk_id": 4, "description": "The complex plane / complex number context in which the functions and identities are considered.", "id": "block_002::node_012", "label": "Complex domain"}, {"name": "Analytic functions", "type": "Concept", "source_chunk_id": 4, "description": "Functions that are complex-differentiable in a neighborhood (analyticity is invoked to justify validity).", "id": "block_002::node_013", "label": "Analytic functions"}], "edges": [{"target": "block_002::node_001", "type": "defines", "source_chunk_id": 1, "description": "The formula explicitly introduces/defines the substitution variable t.", "evidence": "where t = \\tan\\left(\\frac{x}{2}\\right)", "confidence": 0.9, "id": "block_002::edge_000", "source": "block_002::node_000", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_002::node_000"}, {"target": "block_002::node_002", "type": "applied_in", "source_chunk_id": 1, "description": "The identities are stated to hold when x is taken as a complex variable.", "evidence": "**do hold for complex \\( x \\)**", "confidence": 0.9, "id": "block_002::edge_001", "source": "block_002::node_000", "label": "applied_in", "style": {"color": "#5dade2"}, "start": "block_002::node_000"}, {"target": "block_002::node_004", "type": "defines", "source_chunk_id": 2, "description": "Exponential formulas provide the complex definitions of sine and cosine.", "evidence": "\\sin z = \\frac{e^{iz} - e^{-iz}}{2i}, \\quad \\cos z = \\frac{e^{iz} + e^{-iz}}{2}", "confidence": 0.9, "id": "block_002::edge_002", "source": "block_002::node_003", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_002::node_003"}, {"target": "block_002::node_003", "type": "derives_from", "source_chunk_id": 2, "description": "The trigonometric functions (in the complex sense) arise from these exponential definitions.", "evidence": "Trigonometric functions are defined for complex numbers via their exponential form:", "confidence": 0.9, "id": "block_002::edge_003", "source": "block_002::node_004", "label": "derives_from", "style": {"color": "#58d68d"}, "start": "block_002::node_004"}, {"target": "block_002::node_006", "type": "uses", "source_chunk_id": 3, "description": "The identities are obtained via algebraic (half-angle) manipulations.", "evidence": "The identities for \\(\\sin x\\), \\(\\cos x\\), and \\(\\tan x\\) in terms of \\(\\tan(x/2)\\) are purely algebraic. They rely on:\n   \\[\\sin x = 2 \\sin \\frac{x}{2} \\cos \\frac{x}{2},\\quad\n   \\cos x = \\cos^2 \\frac{x}{2} - \\sin^2 \\frac{x}{2},\\quad\n   \\tan x = \\frac{2 \\tan \\frac{x}{2}}{1 - \\tan^2 \\frac{x}{2}}\\]", "confidence": 0.8, "id": "block_002::edge_004", "source": "block_002::node_000", "label": "uses", "style": {"color": "#16a085"}, "start": "block_002::node_000"}, {"target": "block_002::node_013", "type": "requires", "source_chunk_id": 4, "description": "Validity in the complex domain depends on the analyticity of the underlying functions.", "evidence": "These expressions remain valid in the complex domain because the functions involved are analytic and the algebra remains consistent.", "confidence": 0.8, "id": "block_002::edge_005", "source": "block_002::node_000", "label": "requires", "style": {"color": "#c0392b"}, "start": "block_002::node_000"}, {"target": "block_002::node_011", "type": "influences", "source_chunk_id": 5, "description": "Singularities and branch choices affect how the identities should be used for complex x.", "evidence": "Poles and branch cuts: For complex \\( x \\), you need to be aware of:", "confidence": 0.7, "id": "block_002::edge_006", "source": "block_002::node_007", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_002::node_007"}, {"target": "block_002::node_007", "type": "part_of", "source_chunk_id": 5, "description": "Specific pole locations are an instance of the broader pole/branch-cut issues.", "evidence": "\\tan \\left( \\frac{x}{2} \\right) \\text{ when } \\frac{x}{2} = \\frac{\\pi}{2} + n\\pi, \\text{ i.e., } x = \\pi + 2n\\pi", "confidence": 0.9, "id": "block_002::edge_007", "source": "block_002::node_008", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_002::node_008"}, {"target": "block_002::node_007", "type": "part_of", "source_chunk_id": 5, "description": "Zero denominators correspond to singular values in the formulas and are part of the pole/branch issues.", "evidence": "Points where the denominator becomes zero, e.g., \\( 1 + t^2 = 0 \\), \\( 1 - t^2 = 0 \\)", "confidence": 0.9, "id": "block_002::edge_008", "source": "block_002::node_009", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_002::node_009"}, {"target": "block_002::node_009", "type": "uses", "source_chunk_id": 5, "description": "The formulas depend on denominators that can vanish at particular t-values, causing singularities.", "evidence": "Points where the denominator becomes zero, e.g., \\( 1 + t^2 = 0 \\), \\( 1 - t^2 = 0 \\), etc., which correspond to special values in the complex plane", "confidence": 0.8, "id": "block_002::edge_009", "source": "block_002::node_000", "label": "uses", "style": {"color": "#16a085"}, "start": "block_002::node_000"}, {"target": "block_002::node_011", "type": "influences", "source_chunk_id": 6, "description": "Multivalued inverses mean inverting the relations requires branch choices and care.", "evidence": "Multivaluedness: In the complex domain, inverse functions like \\( \\tan^{-1}(z) \\) or logarithms are multivalued, so some care is needed if you’re inverting the relation.", "confidence": 0.7, "id": "block_002::edge_010", "source": "block_002::node_010", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_002::node_010"}, {"target": "block_002::node_012", "type": "applied_in", "source_chunk_id": 2, "description": "The trigonometric functions are considered/defined in the complex-number context.", "evidence": "Trigonometric functions are defined for complex numbers via their exponential form:", "confidence": 0.8, "id": "block_002::edge_011", "source": "block_002::node_004", "label": "applied_in", "style": {"color": "#5dade2"}, "start": "block_002::node_004"}, {"target": "block_002::node_013", "type": "part_of", "source_chunk_id": 2, "description": "Entire functions are analytic everywhere in the complex plane (a subset of analytic functions).", "evidence": "These definitions are **entire functions** (analytic everywhere in the complex plane).", "confidence": 0.9, "id": "block_002::edge_012", "source": "block_002::node_005", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_002::node_005"}, {"target": "block_002::node_010", "type": "influences", "source_chunk_id": 5, "description": "Zero denominators/singular values can be related to branch and inversion issues (weak/indirect link).", "evidence": "Points where the denominator becomes zero, e.g., \\( 1 + t^2 = 0 \\), \\( 1 - t^2 = 0 \\), etc., which correspond to special values in the complex plane", "confidence": 0.4, "id": "block_002::edge_013", "source": "block_002::node_009", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_002::node_009"}, {"target": "block_002::node_004", "type": "requires", "source_chunk_id": 1, "description": "The definition of t depends on the tangent function (a trigonometric function).", "evidence": "where t = \\tan\\left(\\frac{x}{2}\\right)", "confidence": 0.9, "id": "block_002::edge_014", "source": "block_002::node_001", "label": "requires", "style": {"color": "#c0392b"}, "start": "block_002::node_001"}, {"target": "block_002::node_006", "type": "derives_from", "source_chunk_id": 3, "description": "The stated identities are derived via algebraic (half-angle) steps.", "evidence": "The identities for \\(\\sin x\\), \\(\\cos x\\), and \\(\\tan x\\) in terms of \\(\\tan(x/2)\\) are purely algebraic. They rely on:\n   \\[\\sin x = 2 \\sin \\frac{x}{2} \\cos \\frac{x}{2},\\quad\n   \\cos x = \\cos^2 \\frac{x}{2} - \\sin^2 \\frac{x}{2},\\quad\n   \\tan x = \\frac{2 \\tan \\frac{x}{2}}{1 - \\tan^2 \\frac{x}{2}}\\]", "confidence": 0.8, "id": "block_002::edge_015", "source": "block_002::node_000", "label": "derives_from", "style": {"color": "#58d68d"}, "start": "block_002::node_000"}, {"target": "block_002::node_000", "type": "derives_from", "source_chunk_id": 3, "description": "Weak/indirect: the half-angle identities are consistent with (and historically derived from) the underlying function definitions.", "evidence": "The identities for \\(\\sin x\\), \\(\\cos x\\), and \\(\\tan x\\) in terms of \\(\\tan(x/2)\\) are purely algebraic. They rely on:\n   \\[\\sin x = 2 \\sin \\frac{x}{2} \\cos \\frac{x}{2},\\quad\n   \\cos x = \\cos^2 \\frac{x}{2} - \\sin^2 \\frac{x}{2},\\quad\n   \\tan x = \\frac{2 \\tan \\frac{x}{2}}{1 - \\tan^2 \\frac{x}{2}}\\]", "confidence": 0.5, "id": "block_002::edge_016", "source": "block_002::node_003", "label": "derives_from", "style": {"color": "#58d68d"}, "start": "block_002::node_003"}, {"target": "block_002::node_007", "type": "influences", "source_chunk_id": 5, "description": "The complex behavior of trig functions (e.g., tan) leads to poles and branch issues.", "evidence": "Poles of \\( \\tan \\left( \\frac{x}{2} \\right) \\) when \\( \\frac{x}{2} = \\frac{\\pi}{2} + n\\pi \\), i.e., \\( x = \\pi + 2n\\pi \\)", "confidence": 0.6, "id": "block_002::edge_017", "source": "block_002::node_004", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_002::node_004"}, {"target": "block_002::node_007", "type": "part_of", "source_chunk_id": 6, "description": "Multivaluedness of inverses is one aspect of branch-cut-related problems in the complex domain (weak/related).", "evidence": "Multivaluedness: In the complex domain, inverse functions like \\( \\tan^{-1}(z) \\) or logarithms are multivalued, so some care is needed if you’re inverting the relation.", "confidence": 0.5, "id": "block_002::edge_018", "source": "block_002::node_010", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_002::node_010"}, {"target": "block_002::node_012", "type": "part_of", "source_chunk_id": 4, "description": "An instance (variable) taken within the broader complex-number domain.", "evidence": "These expressions remain valid in the complex domain because the functions involved are analytic and the algebra remains consistent.", "confidence": 0.9, "id": "block_002::edge_019", "source": "block_002::node_002", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_002::node_002"}, {"target": "block_002::node_012", "type": "applied_in", "source_chunk_id": 4, "description": "The formulas are asserted to remain valid when considered in the complex domain.", "evidence": "These expressions remain valid in the complex domain because the functions involved are analytic and the algebra remains consistent.", "confidence": 0.8, "id": "block_002::edge_020", "source": "block_002::node_000", "label": "applied_in", "style": {"color": "#5dade2"}, "start": "block_002::node_000"}]}, "metrics": {"node_count": 14, "edge_count": 21, "node_type_counts": {"Formula": 4, "Concept": 8, "Method": 1, "Problem": 1}, "edge_type_counts": {"defines": 2, "applied_in": 3, "derives_from": 3, "uses": 2, "requires": 2, "influences": 4, "part_of": 5}}, "turn_range": [55, 107], "extraction_status": {"ok": true}}, {"id": "block_003", "type": "block", "block_id": "block_003", "title": "Integral of sec^2 z", "summary": "Verified that ∫ sec^2 z dz = tan z + C and noted this holds for complex z except at points where tan z has poles. The answer pointed out the poles z = π/2 + nπ and cautioned about integrating across regions containing singularities.", "key_concepts": ["antiderivative tan z", "poles of tan z", "complex integration domain"], "order_index": 2, "source_type": "chat", "micro_graph": {"nodes": [{"name": "\\int \\sec^2 z \\, dz = \\tan z + C", "type": "Formula", "source_chunk_id": 0, "description": "Integral expression (antiderivative problem) of sec^2 z.", "id": "block_003::node_000", "label": "\\int \\sec^2 z \\, dz = \\tan z + C"}, {"name": "\\sec^2 z", "type": "Concept", "source_chunk_id": 0, "description": "The square of the secant function, integrand and derivative of tan z.", "id": "block_003::node_001", "label": "\\sec^2 z"}, {"name": "\\tan z", "type": "Concept", "source_chunk_id": 0, "description": "The tangent function (complex-analytic except at its poles).", "keywords": ["tangent", "function"], "id": "block_003::node_002", "label": "\\tan z"}, {"name": "complex plane", "type": "Concept", "source_chunk_id": 0, "description": "Constant of integration.", "id": "block_003::node_003", "label": "complex plane"}, {"name": "\\frac{d}{dz}\\tan z = \\sec^2 z", "type": "Formula", "source_chunk_id": 1, "description": "Derivative identity stating that the derivative of tan z is sec^2 z.", "id": "block_003::node_004", "label": "\\frac{d}{dz}\\tan z = \\sec^2 z"}, {"name": "complex z", "type": "Concept", "source_chunk_id": 0, "description": "Complex-valued variable z; domain where the identity is asserted to hold.", "id": "block_003::node_005", "label": "complex z"}, {"name": "real z", "type": "Concept", "source_chunk_id": 1, "description": "Real-valued variable z; mentioned alongside complex domain.", "id": "block_003::node_006", "label": "real z"}, {"name": "poles (undefined points) of \\tan z", "type": "Problem", "source_chunk_id": 1, "description": "Singularities of tan z where the function is undefined (poles).", "id": "block_003::node_007", "label": "poles (undefined points) of \\tan z"}, {"name": "z = \\frac{\\pi}{2} + n\\pi, \\; n \\in \\mathbb{Z}", "type": "Formula", "source_chunk_id": 1, "description": "Location formula for the poles of tan z.", "id": "block_003::node_008", "label": "z = \\frac{\\pi}{2} + n\\pi, \\; n \\in \\mathbb{Z}"}, {"name": "region where \\tan z is analytic", "type": "Concept", "source_chunk_id": 2, "description": "A domain of integration that does not cross poles/vertical asymptotes of tan z.", "id": "block_003::node_009", "label": "region where \\tan z is analytic"}, {"name": "vertical asymptote of \\tan z", "type": "Concept", "source_chunk_id": 1, "description": "Vertical asymptotes corresponding to the poles of tan z.", "id": "block_003::node_010", "label": "vertical asymptote of \\tan z"}, {"name": "contour-integral interpretation in the complex plane", "type": "Method", "source_chunk_id": 3, "description": "Suggested method: interpret the integral via contour integration in the complex plane.", "id": "block_003::node_011", "label": "contour-integral interpretation in the complex plane"}, {"name": "antiderivative", "type": "Concept", "source_chunk_id": 2, "description": "General notion of an antiderivative; here refers to any F with F' = integrand.", "id": "block_003::node_012", "label": "antiderivative"}], "edges": [{"target": "block_003::node_000", "type": "equivalent_to", "source_chunk_id": 0, "description": "The integral equals tan z plus constant (identity).", "evidence": "\\int \\sec^2 z \\, dz = \\tan z + C", "confidence": 0.95, "id": "block_003::edge_000", "source": "block_003::node_000", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_003::node_000"}, {"target": "block_003::node_001", "type": "defines", "source_chunk_id": 1, "description": "The derivative identity states sec^2 z is the derivative of tan z.", "evidence": "- The derivative of \\( \\tan z \\) is \\( \\sec^2 z \\) for all \\( z \\) where \\( \\tan z \\) is defined.", "confidence": 0.9, "id": "block_003::edge_001", "source": "block_003::node_004", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_003::node_004"}, {"target": "block_003::node_002", "type": "derives_from", "source_chunk_id": 1, "description": "sec^2 z is obtained as the derivative of tan z.", "evidence": "- The derivative of \\( \\tan z \\) is \\( \\sec^2 z \\) for all \\( z \\) where \\( \\tan z \\) is defined.", "confidence": 0.9, "id": "block_003::edge_002", "source": "block_003::node_001", "label": "derives_from", "style": {"color": "#58d68d"}, "start": "block_003::node_001"}, {"target": "block_003::node_012", "type": "example_of", "source_chunk_id": 2, "description": "The integral is an instance of taking an antiderivative.", "evidence": "So, as long as you're integrating over a region where \\( \\tan z \\) is analytic (i.e., not crossing a vertical asymptote of \\( \\tan z \\)), the antiderivative is:", "confidence": 0.8, "id": "block_003::edge_003", "source": "block_003::node_000", "label": "example_of", "style": {"color": "#f5b041"}, "start": "block_003::node_000"}, {"target": "block_003::node_000", "type": "part_of", "source_chunk_id": 0, "description": "tan z is a component of the expression tan z + C.", "evidence": "\\tan z + C", "confidence": 0.9, "id": "block_003::edge_004", "source": "block_003::node_002", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_003::node_002"}, {"target": "block_003::node_000", "type": "part_of", "source_chunk_id": 0, "description": "The constant C is part of the antiderivative expression.", "evidence": "\\tan z + C", "confidence": 0.9, "id": "block_003::edge_005", "source": "block_003::node_003", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_003::node_003"}, {"target": "block_003::node_001", "type": "uses", "source_chunk_id": 0, "description": "The integral uses sec^2 z as its integrand.", "evidence": "\\int \\sec^2 z \\, dz", "confidence": 0.95, "id": "block_003::edge_006", "source": "block_003::node_000", "label": "uses", "style": {"color": "#16a085"}, "start": "block_003::node_000"}, {"target": "block_003::node_000", "type": "influences", "source_chunk_id": 0, "description": "Validity of the identity is asserted for complex z as well as real z.", "evidence": "This identity holds **for complex \\( z \\)** just as it does for real \\( z \\), because:", "confidence": 0.9, "id": "block_003::edge_007", "source": "block_003::node_005", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_003::node_005"}, {"target": "block_003::node_000", "type": "influences", "source_chunk_id": 1, "description": "The identity also applies in the real domain.", "evidence": "- This is true in both the **real** and **complex** domains, except at points where \\( \\tan z \\) has **poles**, which occur at:", "confidence": 0.8, "id": "block_003::edge_008", "source": "block_003::node_006", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_003::node_006"}, {"target": "block_003::node_007", "type": "defines", "source_chunk_id": 1, "description": "The formula gives the locations of the poles of tan z.", "evidence": "z = \\frac{\\pi}{2} + n\\pi, \\quad n \\in \\mathbb{Z}", "confidence": 0.95, "id": "block_003::edge_009", "source": "block_003::node_008", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_003::node_008"}, {"target": "block_003::node_009", "type": "requires", "source_chunk_id": 2, "description": "The antiderivative expression is valid only when integrating over a region where tan z is analytic (no crossing of poles/asymptotes).", "evidence": "So, as long as you're integrating over a region where \\( \\tan z \\) is analytic (i.e., not crossing a vertical asymptote of \\( \\tan z \\)), the antiderivative is:", "confidence": 0.9, "id": "block_003::edge_010", "source": "block_003::node_000", "label": "requires", "style": {"color": "#c0392b"}, "start": "block_003::node_000"}, {"target": "block_003::node_000", "type": "influences", "source_chunk_id": 1, "description": "Poles are exceptions where the derivative/antiderivative identity does not hold (undefined points).", "evidence": "- This is true in both the **real** and **complex** domains, except at points where \\( \\tan z \\) has **poles**", "confidence": 0.8, "id": "block_003::edge_011", "source": "block_003::node_007", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_003::node_007"}, {"target": "block_003::node_010", "type": "equivalent_to", "source_chunk_id": 2, "description": "Poles of tan z correspond to vertical asymptotes (contextual equivalence in the text).", "evidence": "not crossing a vertical asymptote of \\( \\tan z \\)", "confidence": 0.8, "id": "block_003::edge_012", "source": "block_003::node_007", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_003::node_007"}, {"target": "block_003::node_000", "type": "leads_to", "source_chunk_id": 2, "description": "Knowing the derivative identity yields the antiderivative result (integral equals tan z + C).", "evidence": "So, as long as you're integrating over a region where \\( \\tan z \\) is analytic (i.e., not crossing a vertical asymptote of \\( \\tan z \\)), the antiderivative is:", "confidence": 0.9, "id": "block_003::edge_013", "source": "block_003::node_004", "label": "leads_to", "style": {"color": "#ec7063"}, "start": "block_003::node_004"}, {"target": "block_003::node_003", "type": "applied_in", "source_chunk_id": 1, "description": "The tangent function is considered in the complex domain (complex plane).", "evidence": "- This is true in both the **real** and **complex** domains, except at points where \\( \\tan z \\) has **poles**", "confidence": 0.8, "id": "block_003::edge_014", "source": "block_003::node_002", "label": "applied_in", "style": {"color": "#5dade2"}, "start": "block_003::node_002"}, {"target": "block_003::node_003", "type": "applied_in", "source_chunk_id": 1, "description": "The function sec^2 z (as derivative) is valid in the complex domain where tan z is defined.", "evidence": "- This is true in both the **real** and **complex** domains, except at points where \\( \\tan z \\) has **poles**", "confidence": 0.8, "id": "block_003::edge_015", "source": "block_003::node_001", "label": "applied_in", "style": {"color": "#5dade2"}, "start": "block_003::node_001"}, {"target": "block_003::node_003", "type": "applied_in", "source_chunk_id": 3, "description": "The suggested contour-integral method is specifically within the complex plane.", "evidence": "Let me know if you want the derivation or a contour-integral interpretation in the complex plane!", "confidence": 0.9, "id": "block_003::edge_016", "source": "block_003::node_011", "label": "applied_in", "style": {"color": "#5dade2"}, "start": "block_003::node_011"}, {"target": "block_003::node_000", "type": "defines", "source_chunk_id": 2, "description": "In this case, the antiderivative of sec^2 z is given as tan z + C.", "evidence": "the antiderivative is: \\n\\n\\int \\sec^2 z \\, dz = \\tan z + C", "confidence": 0.85, "id": "block_003::edge_017", "source": "block_003::node_012", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_003::node_012"}, {"target": "block_003::node_000", "type": "influences", "source_chunk_id": 0, "description": "The statement that tan z + C is the antiderivative is asserted to hold for complex z.", "evidence": "This identity holds **for complex \\( z \\)** just as it does for real \\( z \\), because:", "confidence": 0.8, "id": "block_003::edge_018", "source": "block_003::node_005", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_003::node_005"}, {"target": "block_003::node_000", "type": "influences", "source_chunk_id": 1, "description": "The antiderivative result is also valid in the real domain.", "evidence": "- This is true in both the **real** and **complex** domains, except at points where \\( \\tan z \\) has **poles**", "confidence": 0.7, "id": "block_003::edge_019", "source": "block_003::node_006", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_003::node_006"}, {"target": "block_003::node_000", "type": "influences", "source_chunk_id": 3, "description": "A contour-integral interpretation would provide an alternative complex-analytic perspective on the integral (suggested by the author).", "evidence": "Let me know if you want the derivation or a contour-integral interpretation in the complex plane!", "confidence": 0.4, "id": "block_003::edge_020", "source": "block_003::node_011", "label": "influences", "style": {"color": "#af7ac5"}, "start": "block_003::node_011"}, {"target": "block_003::node_003", "type": "part_of", "source_chunk_id": 2, "description": "An analytic region for tan z is a subset of the complex plane.", "confidence": 0.5, "id": "block_003::edge_021", "source": "block_003::node_009", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_003::node_009"}]}, "metrics": {"node_count": 13, "edge_count": 22, "node_type_counts": {"Formula": 3, "Concept": 8, "Problem": 1, "Method": 1}, "edge_type_counts": {"equivalent_to": 2, "defines": 3, "derives_from": 1, "example_of": 1, "part_of": 3, "uses": 1, "influences": 6, "requires": 1, "leads_to": 1, "applied_in": 3}}, "turn_range": [108, 137], "extraction_status": {"ok": true}}, {"id": "block_005", "type": "block", "block_id": "block_005", "title": "Properties of sec^2 z (complex)", "summary": "Described sec^2 z = 1/cos^2 z as a meromorphic function with double poles at z = π/2 + nπ, noted periodicity and analyticity except at those poles, and restated its antiderivative tan z + C. A Taylor/Laurent expansion around analytic points or poles was also mentioned.", "key_concepts": ["sec^2 z = 1/cos^2 z", "meromorphic", "double poles at π/2 + nπ", "series expansion", "antiderivative tan z"], "order_index": 3, "source_type": "chat", "micro_graph": {"nodes": [], "edges": []}, "metrics": {"node_count": 0, "edge_count": 0, "node_type_counts": {}, "edge_type_counts": {}}, "turn_range": [237, 316], "extraction_status": {"ok": false, "error": "unhashable type: 'list'"}}, {"id": "block_004", "type": "block", "block_id": "block_004", "title": "Integral of tan z · sec^2 z", "summary": "Analyzed tan z · sec^2 z, simplified it to sin z / cos^3 z, and evaluated the integral using u = cos z substitution to obtain (1/2) sec^2 z + C. The assistant also offered to discuss complex behavior, singularities, or residue analysis.", "key_concepts": ["tan z · sec^2 z", "u = cos z substitution", "result (1/2) sec^2 z + C"], "order_index": 4, "source_type": "chat", "micro_graph": {"nodes": [{"name": "tan z", "type": "Formula", "source_chunk_id": 0, "description": "Tangent function; defined as sin z / cos z.", "keywords": ["tan", "trig"], "id": "block_004::node_000", "label": "tan z"}, {"name": "sec^2 z", "type": "Formula", "source_chunk_id": 0, "description": "Square of the secant; equals 1 / cos^2 z.", "id": "block_004::node_001", "label": "sec^2 z"}, {"name": "sin z / cos^3 z", "type": "Formula", "source_chunk_id": 0, "description": "Product of tan z and sec^2 z (the integrand discussed).", "id": "block_004::node_002", "label": "sin z / cos^3 z"}, {"name": "sin z", "type": "Formula", "source_chunk_id": 0, "id": "block_004::node_003", "label": "sin z"}, {"name": "u = cos z", "type": "Formula", "source_chunk_id": 0, "id": "block_004::node_004", "label": "u = cos z"}, {"name": "∫ sin z / cos^3 z dz", "type": "Formula", "source_chunk_id": 1, "description": "Integral of the original integrand.", "id": "block_004::node_005", "label": "∫ sin z / cos^3 z dz"}, {"name": "du = -sin z dz", "type": "Formula", "source_chunk_id": 2, "description": "Differential consequence of u = cos z.", "id": "block_004::node_006", "label": "du = -sin z dz"}, {"name": "-∫ u^{-3} du", "type": "Formula", "source_chunk_id": 2, "description": "Transformed integral after substitution.", "id": "block_004::node_007", "label": "-∫ u^{-3} du"}, {"name": "u-substitution", "type": "Method", "source_chunk_id": 2, "description": "Integration method: substitute u = cos z to simplify the integral.", "keywords": ["substitution", "u=cos"], "id": "block_004::node_008", "label": "u-substitution"}, {"name": "1/(2 u^2)", "type": "Formula", "source_chunk_id": 2, "description": "Antiderivative obtained in u-variable after integration.", "id": "block_004::node_009", "label": "1/(2 u^2)"}, {"name": "1/2 sec^2 z + C", "type": "Formula", "source_chunk_id": 2, "description": "Same as 1/(2 u^2) with u = cos z; intermediate antiderivative in original variable.", "id": "block_004::node_010", "label": "1/2 sec^2 z + C"}], "edges": [{"target": "block_004::node_000", "type": "defines", "source_chunk_id": 0, "description": "tan z is defined as sin z divided by cos z.", "evidence": "tan z = \\frac{\\sin z}{\\cos z}", "confidence": 0.9, "id": "block_004::edge_000", "source": "block_004::node_000", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_004::node_000"}, {"target": "block_004::node_001", "type": "defines", "source_chunk_id": 0, "description": "sec^2 z is introduced as 1 / cos^2 z.", "evidence": "sec^2 z = \\frac{1}{\\cos^2 z}", "confidence": 0.9, "id": "block_004::edge_001", "source": "block_004::node_001", "label": "defines", "style": {"color": "#8e44ad"}, "start": "block_004::node_001"}, {"target": "block_004::node_002", "type": "equivalent_to", "source_chunk_id": 1, "description": "Algebraic simplification of the product into a single fraction.", "evidence": "\\tan z \\cdot \\sec^2 z = \\frac{\\sin z}{\\cos^3 z}", "confidence": 0.95, "id": "block_004::edge_002", "source": "block_004::node_002", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_004::node_002"}, {"target": "block_004::node_005", "type": "equivalent_to", "source_chunk_id": 1, "description": "The integral of the product equals the integral of the simplified fraction.", "evidence": "\\int \\tan z \\cdot \\sec^2 z \\, dz = \\int \\frac{\\sin z}{\\cos^3 z} \\, dz", "confidence": 0.95, "id": "block_004::edge_003", "source": "block_004::node_005", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_004::node_005"}, {"target": "block_004::node_008", "type": "uses", "source_chunk_id": 2, "description": "The integral is evaluated by applying u-substitution.", "evidence": "Let: u = \\cos z \\quad \\Rightarrow \\quad du = -\\sin z \\, dz", "confidence": 0.9, "id": "block_004::edge_004", "source": "block_004::node_005", "label": "uses", "style": {"color": "#16a085"}, "start": "block_004::node_005"}, {"target": "block_004::node_004", "type": "uses", "source_chunk_id": 2, "description": "The method is instantiated by choosing u = cos z.", "evidence": "Let: u = \\cos z", "confidence": 0.8, "id": "block_004::edge_005", "source": "block_004::node_008", "label": "uses", "style": {"color": "#16a085"}, "start": "block_004::node_008"}, {"target": "block_004::node_004", "type": "derives_from", "source_chunk_id": 2, "description": "The differential du is derived from the substitution assignment.", "evidence": "u = \\cos z \\quad \\Rightarrow \\quad du = -\\sin z \\, dz", "confidence": 0.95, "id": "block_004::edge_006", "source": "block_004::node_006", "label": "derives_from", "style": {"color": "#58d68d"}, "start": "block_004::node_006"}, {"target": "block_004::node_005", "type": "derives_from", "source_chunk_id": 2, "description": "The u-form integral is derived from the original z-form integral via substitution.", "evidence": "\\int \\frac{\\sin z}{\\cos^3 z} \\, dz = \\int \\frac{-du}{u^3} = -\\int u^{-3} \\, du", "confidence": 0.95, "id": "block_004::edge_007", "source": "block_004::node_007", "label": "derives_from", "style": {"color": "#58d68d"}, "start": "block_004::node_007"}, {"target": "block_004::node_009", "type": "leads_to", "source_chunk_id": 2, "description": "Integrating u^{-3} produces the antiderivative 1/(2 u^2).", "evidence": "-\\int u^{-3} \\, du = -\\left( \\frac{u^{-2}}{-2} \\right) = \\frac{1}{2u^2}", "confidence": 0.95, "id": "block_004::edge_008", "source": "block_004::node_007", "label": "leads_to", "style": {"color": "#ec7063"}, "start": "block_004::node_007"}, {"target": "block_004::node_010", "type": "equivalent_to", "source_chunk_id": 2, "description": "Replace u by cos z to return to the original variable.", "evidence": "\\frac{1}{2u^2} = \\frac{1}{2 \\cos^2 z}", "confidence": 0.95, "id": "block_004::edge_009", "source": "block_004::node_009", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_004::node_009"}, {"target": "block_004::node_010", "type": "equivalent_to", "source_chunk_id": 3, "description": "Use sec^2 z = 1/cos^2 z to rewrite the antiderivative.", "evidence": "\\frac{1}{2 \\cos^2 z} = \\frac{1}{2} \\sec^2 z", "confidence": 0.95, "id": "block_004::edge_010", "source": "block_004::node_010", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_004::node_010"}, {"target": "block_004::node_010", "type": "part_of", "source_chunk_id": 3, "description": "The constant of integration C is added to the antiderivative.", "evidence": "\\frac{1}{2 \\cos^2 z} + C = \\frac{1}{2} \\sec^2 z + C", "confidence": 0.8, "id": "block_004::edge_011", "source": "block_004::node_010", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_010"}, {"target": "block_004::node_010", "type": "leads_to", "source_chunk_id": 3, "description": "The integral evaluation yields the final antiderivative plus constant.", "evidence": "\\int \\tan z \\cdot \\sec^2 z \\, dz = \\frac{1}{2 \\cos^2 z} + C = \\frac{1}{2} \\sec^2 z + C", "confidence": 0.95, "id": "block_004::edge_012", "source": "block_004::node_005", "label": "leads_to", "style": {"color": "#ec7063"}, "start": "block_004::node_005"}, {"target": "block_004::node_002", "type": "part_of", "source_chunk_id": 0, "description": "tan z is one factor of the product integrand.", "evidence": "This is just the product of: - \\( \\tan z = \\frac{\\sin z}{\\cos z} \\) - \\( \\sec^2 z = \\frac{1}{\\cos^2 z} \\)", "confidence": 0.85, "id": "block_004::edge_013", "source": "block_004::node_000", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_000"}, {"target": "block_004::node_002", "type": "part_of", "source_chunk_id": 0, "description": "sec^2 z is the other factor of the product integrand.", "evidence": "This is just the product of: - \\( \\tan z = \\frac{\\sin z}{\\cos z} \\) - \\( \\sec^2 z = \\frac{1}{\\cos^2 z} \\)", "confidence": 0.85, "id": "block_004::edge_014", "source": "block_004::node_001", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_001"}, {"target": "block_004::node_002", "type": "part_of", "source_chunk_id": 1, "description": "sin z appears as the numerator of the simplified integrand.", "evidence": "\\tan z \\cdot \\sec^2 z = \\frac{\\sin z}{\\cos^3 z}", "confidence": 0.9, "id": "block_004::edge_015", "source": "block_004::node_003", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_003"}, {"target": "block_004::node_002", "type": "part_of", "source_chunk_id": 1, "description": "cos z appears in the denominator (cubed) of the simplified integrand.", "evidence": "\\tan z \\cdot \\sec^2 z = \\frac{\\sin z}{\\cos^3 z}", "confidence": 0.9, "id": "block_004::edge_016", "source": "block_004::node_004", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_004"}, {"target": "block_004::node_000", "type": "equivalent_to", "source_chunk_id": 0, "description": "The quotient form is equivalent to the tan function.", "evidence": "tan z = \\frac{\\sin z}{\\cos z}", "confidence": 0.95, "id": "block_004::edge_017", "source": "block_004::node_000", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_004::node_000"}, {"target": "block_004::node_001", "type": "equivalent_to", "source_chunk_id": 0, "description": "Reciprocal-square of cosine is equivalent to sec^2 z.", "evidence": "sec^2 z = \\frac{1}{\\cos^2 z}", "confidence": 0.95, "id": "block_004::edge_018", "source": "block_004::node_001", "label": "equivalent_to", "style": {"color": "#9b59b6"}, "start": "block_004::node_001"}, {"target": "block_004::node_008", "type": "part_of", "source_chunk_id": 2, "description": "The assignment u = cos z is the specific substitution used within the method.", "evidence": "Let: u = \\cos z", "confidence": 0.85, "id": "block_004::edge_019", "source": "block_004::node_004", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_004"}, {"target": "block_004::node_008", "type": "part_of", "source_chunk_id": 2, "description": "The transformed integral is the result of applying the substitution.", "evidence": "\\int \\frac{\\sin z}{\\cos^3 z} \\, dz = \\int \\frac{-du}{u^3} = -\\int u^{-3} \\, du", "confidence": 0.85, "id": "block_004::edge_020", "source": "block_004::node_007", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_007"}, {"target": "block_004::node_003", "type": "uses", "source_chunk_id": 2, "description": "The differential expression references sin z (du = -sin z dz).", "evidence": "du = -\\sin z \\, dz", "confidence": 0.8, "id": "block_004::edge_021", "source": "block_004::node_006", "label": "uses", "style": {"color": "#16a085"}, "start": "block_004::node_006"}, {"target": "block_004::node_005", "type": "part_of", "source_chunk_id": 1, "description": "The integrand is the integrand part of the integral expression.", "evidence": "\\int \\frac{\\sin z}{\\cos^3 z} \\, dz", "confidence": 0.9, "id": "block_004::edge_022", "source": "block_004::node_002", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_002"}, {"target": "block_004::node_005", "type": "part_of", "source_chunk_id": 1, "description": "The product expression is the integrand inside the integral.", "evidence": "\\int \\tan z \\cdot \\sec^2 z \\, dz", "confidence": 0.9, "id": "block_004::edge_023", "source": "block_004::node_002", "label": "part_of", "style": {"color": "#48c9b0"}, "start": "block_004::node_002"}]}, "metrics": {"node_count": 11, "edge_count": 24, "node_type_counts": {"Formula": 10, "Method": 1}, "edge_type_counts": {"defines": 2, "equivalent_to": 6, "uses": 3, "derives_from": 2, "leads_to": 2, "part_of": 9}}, "turn_range": [139, 235], "extraction_status": {"ok": true}}];
+const EDGES = [{"source": "block_001", "target": "block_002", "type": "PREREQUISITE_OF", "description": "The real half-angle formulas (t = tan(x/2) expressions) are the starting identities that one extends and verifies in the complex plane.", "confidence": 0.9, "id": "block_edge_000", "label": "PREREQUISITE_OF", "style": {"color": "#e74c3c"}}, {"source": "block_002", "target": "block_003", "type": "PREREQUISITE_OF", "description": "Understanding how trig identities and functions extend to complex z (including poles and analytic continuation) is necessary to state and interpret the antiderivative ∫ sec^2 z = tan z in the complex setting.", "confidence": 0.75, "id": "block_edge_001", "label": "PREREQUISITE_OF", "style": {"color": "#e74c3c"}}, {"source": "block_003", "target": "block_005", "type": "ELABORATES", "description": "The integral result tan z + C introduces the antiderivative; block_005 provides deeper detail about sec^2 z's meromorphic nature, poles and local expansions that underlie that antiderivative's domain issues.", "confidence": 0.9, "id": "block_edge_002", "label": "ELABORATES", "style": {"color": "#2ecc71"}}, {"source": "block_002", "target": "block_005", "type": "PREREQUISITE_OF", "description": "General complex-function considerations (multivaluedness, branch/pole awareness) underpin the more specific meromorphic description and pole locations of sec^2 z.", "confidence": 0.85, "id": "block_edge_003", "label": "PREREQUISITE_OF", "style": {"color": "#e74c3c"}}, {"source": "block_003", "target": "block_004", "type": "FOLLOWS", "description": "After learning the antiderivative of sec^2 z, a natural next step is to consider related integrals like ∫ tan z · sec^2 z which builds on those derivative/antiderivative relationships.", "confidence": 0.7, "id": "block_edge_004", "label": "FOLLOWS", "style": {"color": "#3498db"}}, {"source": "block_005", "target": "block_004", "type": "ELABORATES", "description": "The meromorphic structure and pole information for sec^2 z helps explain singularity behavior and permissible integration regions when evaluating ∫ tan z · sec^2 z in the complex plane.", "confidence": 0.8, "id": "block_edge_005", "label": "ELABORATES", "style": {"color": "#2ecc71"}}];
+const PATHS = [["block_001", "block_002", "block_003", "block_005", "block_004"], ["block_001", "block_002", "block_005", "block_003", "block_004"]];
+const COLORS = {"ELABORATES": "#22c55e", "FOLLOWS": "#38bdf8", "PREREQUISITE_OF": "#ef4444", "applied_in": "#38bdf8", "causes": "#f97316", "defines": "#a78bfa", "derives_from": "#60a5fa", "equivalent_to": "#c084fc", "example_of": "#fbbf24", "influences": "#f472b6", "leads_to": "#fb7185", "part_of": "#2dd4bf", "requires": "#ef4444", "uses": "#14b8a6"};
+const RAW_TEXTS = {"block_001": "=== 삼각함수 반각 공식 ===\n\n[User] sinx, cosx, tanx를 tan(x/2)로 나타내는법을 알려줘\n\n[AI] 삼각함수인 \\(\\sin x\\), \\(\\cos x\\), \\(\\tan x\\)를 \\(\\tan\\left(\\frac{x}{2}\\right)\\)로 나타내는 공식은 **\"반각 공식\"**이라고 합니다. 아래에 정리해드릴게요.\n\n---\n\n### ✅ \\( \\sin x, \\cos x, \\tan x \\)를 \\( t = \\tan\\left(\\frac{x}{2}\\right) \\)로 표현하는 공식\n\n우선,  \n\\[ t = \\tan\\left(\\frac{x}{2}\\right) \\]  \n라고 할 때,\n\n---\n\n#### 🔹 \\( \\sin x \\) :\n\\[\n\\sin x = \\frac{2t}{1 + t^2}\n\\]\n\n---\n\n#### 🔹 \\( \\cos x \\) :\n\\[\n\\cos x = \\frac{1 - t^2}{1 + t^2}\n\\]\n\n---\n\n#### 🔹 \\( \\tan x \\) :\n\\[\n\\tan x = \\frac{2t}{1 - t^2}\n\\]\n\n---\n\n### ✅ 요약표\n\n| 함수      | \\( \\tan\\left(\\frac{x}{2}\\right) = t \\)로 표현 |\n|-----------|---------------------------------------------|\n| \\( \\sin x \\) | \\( \\dfrac{2t}{1 + t^2} \\)                  |\n| \\( \\cos x \\) | \\( \\dfrac{1 - t^2}{1 + t^2} \\)              |\n| \\( \\tan x \\) | \\( \\dfrac{2t}{1 - t^2} \\) (단, \\( t \\ne \\pm 1 \\))   |\n\n---\n\n### ✅ 유의사항\n- 이 공식들은 x가 특정 각(예: 0, π 등)일 때 분모가 0이 되어 정의되지 않을 수 있습니다.\n- \\( t = \\tan\\left(\\frac{x}{2}\\right) \\) 이므로, x가 \\( \\pi \\) 또는 그 배수일 경우 유의하세요.\n\n---\n\n필요하면 이 공식을 유도하는 과정도 알려드릴 수 있어요!\n", "block_002": "[User] does it work for complex variable/\n\n[AI] Great question — yes, **these formulas still work for complex variables**, but with some important caveats and nuances.\n\n---\n\n### ✅ Summary: Do the identities hold for complex variables?\n\nYes, the identities\n\n\\[\n\\sin x = \\frac{2t}{1 + t^2},\\quad \\cos x = \\frac{1 - t^2}{1 + t^2},\\quad \\tan x = \\frac{2t}{1 - t^2}\n\\quad \\text{where } t = \\tan\\left(\\frac{x}{2}\\right)\n\\]\n\n**do hold for complex \\( x \\)**, because they are derived from algebraic manipulations and definitions that extend naturally into the complex domain.\n\n---\n\n### 🧠 Why do they still work?\n\n1. **Trigonometric functions are defined for complex numbers** via their exponential form:\n   \\[\n   \\sin z = \\frac{e^{iz} - e^{-iz}}{2i}, \\quad \\cos z = \\frac{e^{iz} + e^{-iz}}{2}\n   \\]\n   These definitions are **entire functions** (analytic everywhere in the complex plane).\n\n2. The identities for \\(\\sin x\\), \\(\\cos x\\), and \\(\\tan x\\) in terms of \\(\\tan(x/2)\\) are purely algebraic. They rely on:\n   \\[\n   \\sin x = 2 \\sin \\frac{x}{2} \\cos \\frac{x}{2},\\quad\n   \\cos x = \\cos^2 \\frac{x}{2} - \\sin^2 \\frac{x}{2},\\quad\n   \\tan x = \\frac{2 \\tan \\frac{x}{2}}{1 - \\tan^2 \\frac{x}{2}}\n   \\]\n   These expressions remain valid in the complex domain because the functions involved are analytic and the algebra remains consistent.\n\n---\n\n### ⚠️ What to be careful about\n\n- **Poles and branch cuts**: For complex \\( x \\), you need to be aware of:\n  - Poles of \\( \\tan \\left( \\frac{x}{2} \\right) \\) when \\( \\frac{x}{2} = \\frac{\\pi}{2} + n\\pi \\), i.e., \\( x = \\pi + 2n\\pi \\)\n  - Points where the denominator becomes zero, e.g., \\( 1 + t^2 = 0 \\), \\( 1 - t^2 = 0 \\), etc., which correspond to special values in the complex plane\n\n- **Multivaluedness**: In the complex domain, inverse functions like \\( \\tan^{-1}(z) \\) or logarithms are multivalued, so some care is needed if you’re inverting the relation.\n\n---\n\n### ✅ Conclusion\n\nYes, the identities for \\( \\sin x \\), \\( \\cos x \\), and \\( \\tan x \\) in terms of \\( \\tan\\left(\\frac{x}{2}\\right) \\) are valid for complex \\( x \\), but like many things in complex analysis, you should be cautious about singularities and branches when working with them.\n\nLet me know if you'd like an example with a specific complex number!\n", "block_003": "[User] is \\int (secz)^2dz = tanz ?\n\n[AI] Yes — you're absolutely right!\n\n\\[\n\\int \\sec^2 z \\, dz = \\tan z + C\n\\]\n\nThis identity holds **for complex \\( z \\)** just as it does for real \\( z \\), because:\n\n- The derivative of \\( \\tan z \\) is \\( \\sec^2 z \\) for all \\( z \\) where \\( \\tan z \\) is defined.\n- This is true in both the **real** and **complex** domains, except at points where \\( \\tan z \\) has **poles**, which occur at:\n  \\[\n  z = \\frac{\\pi}{2} + n\\pi, \\quad n \\in \\mathbb{Z}\n  \\]\n\nSo, as long as you're integrating over a region where \\( \\tan z \\) is analytic (i.e., not crossing a vertical asymptote of \\( \\tan z \\)), the antiderivative is:\n\n\\[\n\\int \\sec^2 z \\, dz = \\tan z + C\n\\]\n\n---\n\n### ✅ In summary:\n- **Yes**, your formula is correct.\n- The antiderivative holds for complex \\( z \\), too.\n- Just be aware of singularities where \\( \\tan z \\) has poles (undefined points).\n\nLet me know if you want the derivation or a contour-integral interpretation in the complex plane!", "block_005": "[User] what about sec^2z\n\n[AI] You're asking about the function \\( \\sec^2 z \\) in the **complex** domain — and likely its properties, behavior, and possibly its integral.\n\nLet's break this down clearly:\n\n---\n\n## 🔹 1. **What is \\( \\sec^2 z \\)?**\n\nBy definition:\n\n\\[\n\\sec z = \\frac{1}{\\cos z}, \\quad \\text{so} \\quad \\sec^2 z = \\frac{1}{\\cos^2 z}\n\\]\n\nThis definition is valid for **complex \\( z \\)** as long as \\( \\cos z \\ne 0 \\).\n\n---\n\n## 🔹 2. **Singularities in the complex plane**\n\nThe function \\( \\sec^2 z \\) has **poles of order 2** at points where:\n\n\\[\n\\cos z = 0 \\quad \\Rightarrow \\quad z = \\frac{\\pi}{2} + n\\pi,\\quad n \\in \\mathbb{Z}\n\\]\n\nThese are isolated singularities (vertical asymptotes on the real line) but also extend to the complex plane, forming a discrete set of poles.\n\n---\n\n## 🔹 3. **Behavior in the complex domain**\n\nSince \\( \\cos z \\) is an entire function (analytic everywhere), \\( \\sec^2 z = \\frac{1}{\\cos^2 z} \\) is **meromorphic** — that means it's analytic except at its isolated poles (where \\( \\cos z = 0 \\)).\n\nSo:\n- \\( \\sec^2 z \\) is analytic on \\( \\mathbb{C} \\setminus \\left\\{ \\frac{\\pi}{2} + n\\pi \\right\\} \\)\n- It has **double poles** at those points\n- It is periodic with period \\( 2\\pi \\)\n\n---\n\n## 🔹 4. **Integral of \\( \\sec^2 z \\)**\n\nThis one is familiar:\n\n\\[\n\\int \\sec^2 z \\, dz = \\tan z + C\n\\]\n\nThis identity holds in the complex domain as well, **except** across paths that cross the poles of \\( \\tan z \\), where branch cuts or discontinuities arise.\n\n---\n\n## 🔹 5. **Series expansion (optional advanced)**\n\nYou can express \\( \\sec^2 z \\) as a Laurent series around a pole or as a Taylor series around a point where it's analytic.\n\nFor example, around \\( z = 0 \\), since \\( \\cos z = 1 - \\frac{z^2}{2!} + \\frac{z^4}{4!} - \\cdots \\),  \nyou can compute:\n\n\\[\n\\sec^2 z = \\left( \\frac{1}{\\cos z} \\right)^2 = 1 + z^2 + \\frac{5 z^4}{12} + \\cdots\n\\]\n\n---\n\n## ✅ Summary\n\n- \\( \\sec^2 z = \\frac{1}{\\cos^2 z} \\) is well-defined for all \\( z \\in \\mathbb{C} \\) where \\( \\cos z \\ne 0 \\)\n- It has **poles of order 2** at \\( z = \\frac{\\pi}{2} + n\\pi \\)\n- It is **meromorphic**, periodic, and analytic elsewhere\n- Its antiderivative is:\n  \\[\n  \\int \\sec^2 z \\, dz = \\tan z + C\n  \\]\n\nLet me know if you'd like to explore residue computation at a pole of \\( \\sec^2 z \\), or visualize its complex plot!\n", "block_004": "[User] what about tanz (secz)^2\n\n[AI] Great question!\n\nYou're asking about the function:\n\n\\[\n\\tan z \\cdot \\sec^2 z\n\\]\n\nand possibly its integral.\n\nLet’s explore this expression in detail and then look at its integral.\n\n---\n\n### 🔹 Step 1: Understand the expression\n\n\\[\n\\tan z \\cdot \\sec^2 z\n\\]\n\nThis is just the product of:\n- \\( \\tan z = \\frac{\\sin z}{\\cos z} \\)\n- \\( \\sec^2 z = \\frac{1}{\\cos^2 z} \\)\n\nSo:\n\n\\[\n\\tan z \\cdot \\sec^2 z = \\frac{\\sin z}{\\cos z} \\cdot \\frac{1}{\\cos^2 z} = \\frac{\\sin z}{\\cos^3 z}\n\\]\n\nThat simplifies the expression to:\n\n\\[\n\\tan z \\cdot \\sec^2 z = \\frac{\\sin z}{\\cos^3 z}\n\\]\n\n---\n\n### 🔹 Step 2: Integrate it\n\nNow we want to evaluate:\n\n\\[\n\\int \\tan z \\cdot \\sec^2 z \\, dz = \\int \\frac{\\sin z}{\\cos^3 z} \\, dz\n\\]\n\nLet’s compute that.\n\n---\n\n### 🔹 Step 3: Let’s use substitution\n\nLet:\n\n\\[\nu = \\cos z \\quad \\Rightarrow \\quad du = -\\sin z \\, dz\n\\]\n\nThen:\n\n\\[\n\\sin z \\, dz = -du\n\\]\n\nSo:\n\n\\[\n\\int \\frac{\\sin z}{\\cos^3 z} \\, dz = \\int \\frac{-du}{u^3} = -\\int u^{-3} \\, du\n\\]\n\nNow integrate:\n\n\\[\n-\\int u^{-3} \\, du = -\\left( \\frac{u^{-2}}{-2} \\right) = \\frac{1}{2u^2} = \\frac{1}{2 \\cos^2 z}\n\\]\n\n---\n\n### ✅ Final result:\n\n\\[\n\\int \\tan z \\cdot \\sec^2 z \\, dz = \\frac{1}{2 \\cos^2 z} + C = \\frac{1}{2} \\sec^2 z + C\n\\]\n\n---\n\n### 📌 Summary\n\n- \\( \\tan z \\cdot \\sec^2 z = \\frac{\\sin z}{\\cos^3 z} \\)\n- Its integral is:\n  \\[\n  \\int \\tan z \\cdot \\sec^2 z \\, dz = \\frac{1}{2} \\sec^2 z + C\n  \\]\n\nLet me know if you want to see how this behaves for complex \\( z \\), including singularities or residue analysis!"};
+const KO = {
+  PREREQUISITE_OF: '선수개념',
+  FOLLOWS: '이어짐',
+  ELABORATES: '심화',
+  CONTRASTS: '대조',
+  PARALLEL: '병렬',
+  RELATED: '관련',
+  defines: '정의함',
+  uses: '사용함',
+  part_of: '부분',
+  causes: '야기함',
+  influences: '영향줌',
+  leads_to: '이어짐',
+  solves: '해결함',
+  improves: '개선함',
+  requires: '필요함',
+  prerequisite_of: '선수개념',
+  derives_from: '유도됨',
+  equivalent_to: '동치',
+  example_of: '예시',
+  contrasts_with: '대조',
+  applied_in: '적용됨',
+  occurs_in: '발생함',
+  happens_during: '기간 중 발생',
+  proposed_by: '제안자',
+  related_to: '관련됨',
+  has_property: '속성',
+  has_example: '예시',
+  supports: '지원함',
+  explains: '설명함',
+  contains: '포함함'
+};
+const BLOCK_W = 330, BLOCK_H = 286;
+let pos = {};
+let panX = 20, panY = 20, scale = 1;
+let panning = false, panStartX = 0, panStartY = 0;
+let rawPinned = false;
+
+function texify(s) {
+  s = String(s || '');
+  const escaped = escapeHtml(s);
+  if (s.includes('\\(') || s.includes('\\[')) return escaped;
+  const compactMath = /\\(frac|int|sum|prod|sin|cos|tan|sec|mathbb|left|right)|[_^=]/.test(s) && !/[가-힣A-Za-z]{2,}\s+[가-힣A-Za-z]{2,}/.test(s);
+  if (compactMath) return '\\(' + escaped + '\\)';
+  return escaped
+    .replace(/\b(sin|cos|tan|sec)\s*\^\s*([0-9]+)\s*([a-zA-Z])\b/g, (_, f, pow, v) => `\\(${f}^{${pow}} ${v}\\)`)
+    .replace(/\b(sin|cos|tan|sec)\s+([a-zA-Z])\b/g, (_, f, v) => `\\(${f} ${v}\\)`)
+    .replace(/\bpi\b/g, '\\(\\pi\\)');
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function edgeLabel(t) { return KO[t] || t || ''; }
+function trunc(s, n) { s = String(s || ''); return s.length > n ? s.slice(0, n - 3) + '...' : s; }
+function typeset() {
+  if (window.MathJax?.typesetPromise) {
+    MathJax.typesetPromise().catch(() => {});
+  }
+}
+
+function layout() {
+  const ids = BLOCKS.map(b => b.block_id);
+  const indeg = Object.fromEntries(ids.map(id => [id, 0]));
+  const adj = Object.fromEntries(ids.map(id => [id, []]));
+  EDGES.forEach(e => { if (adj[e.source]) { adj[e.source].push(e.target); indeg[e.target] = (indeg[e.target] || 0) + 1; } });
+  const q = ids.filter(id => !indeg[id]);
+  const level = Object.fromEntries(q.map(id => [id, 0]));
+  for (let qi = 0; qi < q.length; qi++) {
+    const cur = q[qi];
+    (adj[cur] || []).forEach(n => { level[n] = Math.max(level[n] || 0, (level[cur] || 0) + 1); if (--indeg[n] === 0) q.push(n); });
+  }
+  ids.forEach((id, i) => { if (level[id] === undefined) level[id] = i; });
+  const lanes = {};
+  ids.forEach(id => { const l = level[id]; (lanes[l] ||= []).push(id); });
+  Object.entries(lanes).forEach(([l, arr]) => {
+    arr.forEach((id, i) => { pos[id] = { x:80 + Number(l) * 470, y:80 + i * 360 + (Number(l) % 2) * 80 }; });
+  });
+}
+
+function renderLegend() {
+  const legend = document.getElementById('legend');
+  legend.innerHTML = Object.entries(COLORS).map(([t, c]) =>
+    `<div class="legend-item"><span class="legend-line" style="background:${c}"></span>${escapeHtml(edgeLabel(t))}</div>`
+  ).join('');
+}
+
+function renderBlocks() {
+  const layer = document.getElementById('block-layer');
+  layer.innerHTML = '';
+  BLOCKS.forEach(block => {
+    const p = pos[block.block_id];
+    const micro = block.micro_graph || {nodes:[], edges:[]};
+    const concepts = (block.key_concepts || []).slice(0, 5).map(c => `<span class="tag">${texify(c)}</span>`).join('');
+    const card = document.createElement('div');
+    card.className = 'block-card';
+    card.id = 'card-' + block.block_id;
+    card.style.left = p.x + 'px';
+    card.style.top = p.y + 'px';
+    card.innerHTML = `
+      <div class="head">
+        <div class="block-id">${escapeHtml(block.block_id)} · order #${block.order_index ?? ''}</div>
+        <div class="block-title">${texify(block.title || block.block_id)}</div>
+      </div>
+      ${micro.nodes.length ? `<div class="micro">${microSvg(block)}</div>` : `<div class="micro-empty">no micro graph</div>`}
+      <div class="foot">${concepts}</div>`;
+    installBlockDrag(card, block.block_id);
+    const microEl = card.querySelector('.micro');
+    if (microEl) microEl.addEventListener('click', e => {
+      e.stopPropagation();
+      showMicroView(block);
+    });
+    card.addEventListener('mouseenter', () => showRaw(block));
+    card.addEventListener('mouseleave', () => { if (!rawPinned) hideRaw(); });
+    card.addEventListener('click', e => {
+      e.stopPropagation();
+      rawPinned = true;
+      showRaw(block);
+    });
+    card.addEventListener('dblclick', e => {
+      e.stopPropagation();
+      showMicroView(block);
+    });
+    layer.appendChild(card);
+  });
+  typeset();
+}
+
+function showRaw(block) {
+  const panel = document.getElementById('raw-panel');
+  const title = document.getElementById('raw-title-text');
+  const body = document.getElementById('raw-body');
+  title.innerHTML = texify(block.title || block.block_id);
+  const raw = RAW_TEXTS[block.block_id] || block.summary || '';
+  body.innerHTML = renderMarkdown(raw);
+  panel.style.display = 'block';
+  typeset();
+}
+
+function hideRaw() {
+  if (rawPinned) return;
+  document.getElementById('raw-panel').style.display = 'none';
+}
+
+function closeRaw() {
+  rawPinned = false;
+  document.getElementById('raw-panel').style.display = 'none';
+}
+
+function texifyMultiline(s) {
+  return escapeHtml(String(s || ''))
+    .replace(/\\\[((?:.|\n)*?)\\\]/g, (_, m) => '\\[' + m + '\\]')
+    .replace(/\\\(((?:.|\n)*?)\\\)/g, (_, m) => '\\(' + m + '\\)');
+}
+
+function restoreTex(s) {
+  return s
+    .replace(/\\\[((?:.|\n)*?)\\\]/g, (_, m) => '\\[' + m + '\\]')
+    .replace(/\\\(((?:.|\n)*?)\\\)/g, (_, m) => '\\(' + m + '\\)');
+}
+
+function inlineMarkdown(s) {
+  return restoreTex(escapeHtml(s))
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+function renderMarkdown(s) {
+  const lines = String(s || '').replace(/\r\n/g, '\n').split('\n');
+  let html = '', inList = false, inTable = false, tableRows = [];
+  function closeList() { if (inList) { html += '</ul>'; inList = false; } }
+  function flushTable() {
+    if (!inTable) return;
+    html += '<pre>' + tableRows.map(escapeHtml).join('\n') + '</pre>';
+    tableRows = []; inTable = false;
+  }
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^\s*$/.test(line)) { closeList(); flushTable(); continue; }
+    if (/^\s*\|/.test(line)) { closeList(); inTable = true; tableRows.push(line); continue; }
+    flushTable();
+    if (line.trim() === '\\[') {
+      closeList();
+      const mathLines = [];
+      while (++i < lines.length && lines[i].trim() !== '\\]') {
+        mathLines.push(lines[i]);
+      }
+      html += `<div class="math-block">\\[${escapeHtml(mathLines.join('\n'))}\\]</div>`;
+      continue;
+    }
+    const heading = line.match(/^\s*(#{1,6})\s+(.+)$/);
+    if (heading) {
+      closeList();
+      const level = Math.min(4, heading[1].length);
+      html += `<h${level}>${inlineMarkdown(heading[2])}</h${level}>`;
+      continue;
+    }
+    if (/^\s*---+\s*$/.test(line)) { closeList(); html += '<hr>'; continue; }
+    const bullet = line.match(/^\s*[-*]\s+(.+)$/);
+    if (bullet) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${inlineMarkdown(bullet[1])}</li>`;
+      continue;
+    }
+    closeList();
+    html += `<p>${inlineMarkdown(line)}</p>`;
+  }
+  closeList(); flushTable();
+  return html;
+}
+
+function showMicroView(block) {
+  const view = document.getElementById('micro-view');
+  document.getElementById('micro-title').innerHTML = texify(block.title || block.block_id);
+  document.getElementById('micro-canvas').innerHTML = bigMicroSvg(block);
+  view.style.display = 'block';
+  hideRaw();
+  installBigMicroDrag();
+  typeset();
+}
+
+function hideMicroView() {
+  document.getElementById('micro-view').style.display = 'none';
+  document.getElementById('micro-canvas').innerHTML = '';
+  typeset();
+}
+
+function bigMicroSvg(block) {
+  const micro = block.micro_graph || {nodes:[], edges:[]};
+  const nodes = micro.nodes || [];
+  const edges = micro.edges || [];
+  if (!nodes.length) return '<div class="micro-empty" style="height:100%">no micro graph</div>';
+  const w = 1800, h = 920, cx = w / 2, cy = h / 2, r = Math.min(330, 130 + nodes.length * 16);
+  const nodePos = {};
+  nodes.forEach((n, i) => {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / Math.max(1, nodes.length);
+    nodePos[n.id] = { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
+  });
+  const defs = Object.entries(COLORS).map(([t,c]) => `<marker id="big-arrow-${cssId(t)}" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto"><path d="M0,0 L11,4 L0,8 Z" fill="${c}"/></marker>`).join('');
+  const edgeSvg = edges.map((e, i) => {
+    const s = nodePos[e.source], t = nodePos[e.target];
+    if (!s || !t) return '';
+    const color = COLORS[e.type] || '#94a3b8';
+    const mx = (s.x + t.x) / 2 + ((i % 5) - 2) * 18;
+    const my = (s.y + t.y) / 2 + ((i % 3) - 1) * 18;
+    return `<path class="big-edge" data-source="${escapeHtml(e.source)}" data-target="${escapeHtml(e.target)}" data-bx="${((i % 5) - 2) * 18}" data-by="${((i % 3) - 1) * 18}" d="M${s.x},${s.y} Q${mx},${my} ${t.x},${t.y}" fill="none" stroke="${color}" stroke-width="2.5" opacity=".9" marker-end="url(#big-arrow-${cssId(e.type)})" /><text class="edge-label big-edge-label" data-source="${escapeHtml(e.source)}" data-target="${escapeHtml(e.target)}" data-bx="${((i % 5) - 2) * 18}" data-by="${((i % 3) - 1) * 18}" x="${mx}" y="${my - 8}" text-anchor="middle" fill="${color}">${escapeHtml(edgeLabel(e.type))}</text>`;
+  }).join('');
+  const nodeSvg = nodes.map(n => {
+    const p = nodePos[n.id];
+    return `<g class="big-node-group" data-node-id="${escapeHtml(n.id)}" data-x="${p.x}" data-y="${p.y}" transform="translate(${p.x},${p.y})"><circle class="big-node" cx="0" cy="0" r="12" /><foreignObject x="-115" y="-62" width="230" height="54"><div xmlns="http://www.w3.org/1999/xhtml" class="big-node-label">${texify(trunc(n.label || n.name, 64))}</div></foreignObject></g>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${w} ${h}"><defs>${defs}</defs>${edgeSvg}${nodeSvg}</svg>`;
+}
+
+function bigPos(id) {
+  const g = document.querySelector(`.big-node-group[data-node-id="${CSS.escape(id)}"]`);
+  return g ? { x: Number(g.dataset.x), y: Number(g.dataset.y) } : null;
+}
+
+function updateBigEdges() {
+  document.querySelectorAll('.big-edge').forEach(path => {
+    const s = bigPos(path.dataset.source), t = bigPos(path.dataset.target);
+    if (!s || !t) return;
+    const bx = Number(path.dataset.bx || 0), by = Number(path.dataset.by || 0);
+    const mx = (s.x + t.x) / 2 + bx, my = (s.y + t.y) / 2 + by;
+    path.setAttribute('d', `M${s.x},${s.y} Q${mx},${my} ${t.x},${t.y}`);
+  });
+  document.querySelectorAll('.big-edge-label').forEach(label => {
+    const s = bigPos(label.dataset.source), t = bigPos(label.dataset.target);
+    if (!s || !t) return;
+    const bx = Number(label.dataset.bx || 0), by = Number(label.dataset.by || 0);
+    label.setAttribute('x', (s.x + t.x) / 2 + bx);
+    label.setAttribute('y', (s.y + t.y) / 2 + by - 8);
+  });
+}
+
+function installBigMicroDrag() {
+  const svg = document.querySelector('#micro-canvas svg');
+  if (!svg) return;
+  let active = null;
+  let start = null;
+  svg.querySelectorAll('.big-node-group').forEach(g => {
+    g.addEventListener('mousedown', e => {
+      e.stopPropagation();
+      active = g;
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX; pt.y = e.clientY;
+      const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+      start = { x: loc.x, y: loc.y, ox: Number(g.dataset.x), oy: Number(g.dataset.y) };
+    });
+  });
+  window.addEventListener('mousemove', e => {
+    if (!active || !start) return;
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const nx = start.ox + loc.x - start.x;
+    const ny = start.oy + loc.y - start.y;
+    active.dataset.x = nx;
+    active.dataset.y = ny;
+    active.setAttribute('transform', `translate(${nx},${ny})`);
+    updateBigEdges();
+  });
+  window.addEventListener('mouseup', () => { active = null; start = null; });
+}
+
+function microSvg(block) {
+  const micro = block.micro_graph || {nodes:[], edges:[]};
+  const nodes = micro.nodes || [];
+  const edges = micro.edges || [];
+  const cx = 165, cy = 82, r = Math.min(62, 26 + nodes.length * 3);
+  const nodePos = {};
+  nodes.forEach((n, i) => {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / Math.max(1, nodes.length);
+    nodePos[n.id] = { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
+  });
+  const edgeSvg = edges.map(e => {
+    const s = nodePos[e.source], t = nodePos[e.target];
+    if (!s || !t) return '';
+    const color = COLORS[e.type] || '#94a3b8';
+    return `<line x1="${s.x.toFixed(1)}" y1="${s.y.toFixed(1)}" x2="${t.x.toFixed(1)}" y2="${t.y.toFixed(1)}" stroke="${color}" stroke-width="1.4" opacity=".82" marker-end="url(#micro-arrow-${cssId(e.type)})" />`;
+  }).join('');
+  const nodeSvg = nodes.map(n => {
+    const p = nodePos[n.id];
+    return `<g><circle class="micro-node" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="6"><title>${escapeHtml(n.label || n.name || '')}</title></circle></g>`;
+  }).join('');
+  const defs = Object.entries(COLORS).map(([t,c]) => `<marker id="micro-arrow-${cssId(t)}" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 Z" fill="${c}"/></marker>`).join('');
+  return `<svg viewBox="0 0 330 166"><defs>${defs}</defs>${edgeSvg}${nodeSvg}</svg>`;
+}
+
+function cssId(s) { return String(s || 'x').replace(/[^a-zA-Z0-9_-]/g, '_'); }
+
+function renderEdges() {
+  const g = document.getElementById('edges'), labels = document.getElementById('labels'), defs = document.getElementById('defs');
+  defs.innerHTML = Object.entries(COLORS).map(([t,c]) => `<marker id="arrow-${cssId(t)}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><path d="M0,0 L10,3.5 L0,7 Z" fill="${c}"/></marker>`).join('');
+  g.innerHTML = ''; labels.innerHTML = '';
+  EDGES.forEach((e, i) => {
+    const s = pos[e.source], t = pos[e.target];
+    if (!s || !t) return;
+    const sx = s.x + BLOCK_W, sy = s.y + BLOCK_H / 2;
+    const tx = t.x, ty = t.y + BLOCK_H / 2;
+    const bend = ((i % 3) - 1) * 42;
+    const mx = (sx + tx) / 2, my = (sy + ty) / 2 + bend;
+    const d = `M${sx},${sy} Q${mx},${my} ${tx},${ty}`;
+    const color = COLORS[e.type] || '#94a3b8';
+    g.insertAdjacentHTML('beforeend', `<path d="${d}" fill="none" stroke="${color}" stroke-width="2.8" opacity=".92" marker-end="url(#arrow-${cssId(e.type)})" />`);
+    labels.insertAdjacentHTML('beforeend', `<text class="edge-label" x="${mx}" y="${my - 8}" text-anchor="middle" fill="${color}">${escapeHtml(edgeLabel(e.type))}</text>`);
+  });
+}
+
+function installBlockDrag(card, id) {
+  let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+  card.addEventListener('mousedown', e => {
+    e.stopPropagation();
+    dragging = true; sx = e.clientX; sy = e.clientY; ox = pos[id].x; oy = pos[id].y;
+    card.classList.add('focused');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    pos[id].x = ox + (e.clientX - sx) / scale;
+    pos[id].y = oy + (e.clientY - sy) / scale;
+    card.style.left = pos[id].x + 'px';
+    card.style.top = pos[id].y + 'px';
+    renderEdges();
+  });
+  window.addEventListener('mouseup', () => { dragging = false; card.classList.remove('focused'); });
+}
+
+function applyWorld() {
+  document.getElementById('world').style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+}
+const stage = document.getElementById('stage');
+stage.addEventListener('mousedown', e => {
+  if (e.target.closest('.block-card')) return;
+  panning = true; panStartX = e.clientX - panX; panStartY = e.clientY - panY;
+});
+window.addEventListener('mousemove', e => { if (panning) { panX = e.clientX - panStartX; panY = e.clientY - panStartY; applyWorld(); } });
+window.addEventListener('mouseup', () => { panning = false; });
+stage.addEventListener('click', e => {
+  if (e.target.closest('.block-card') || e.target.closest('#raw-panel')) return;
+  closeRaw();
+});
+
+stage.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = e.deltaY < 0 ? 1.08 : 0.925;
+  const rect = stage.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  panX = mx - (mx - panX) * delta;
+  panY = my - (my - panY) * delta;
+  scale = Math.max(.25, Math.min(2.4, scale * delta));
+  applyWorld();
+}, { passive:false });
+
+layout();
+renderLegend();
+renderBlocks();
+renderEdges();
+applyWorld();
+document.getElementById('back-btn').addEventListener('click', hideMicroView);
+document.getElementById('raw-close').addEventListener('click', e => { e.stopPropagation(); closeRaw(); });
+window.addEventListener('load', () => setTimeout(typeset, 150));
+</script>
+</body>
+</html>

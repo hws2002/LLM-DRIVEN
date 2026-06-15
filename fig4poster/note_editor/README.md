@@ -1,0 +1,1 @@
+노트에디터가 기존 markdown, latex, html문법을 잘 제공해줌과 동시에, pdf, wordx, pptx같은 자료들도 전부 잘 커버함을 강조

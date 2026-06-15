@@ -1,0 +1,16 @@
+.claude/
+.env.example
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Source code (separate repo, submitted via link)
+codes/

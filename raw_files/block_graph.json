@@ -1,0 +1,1469 @@
+{
+  "source_type": "note",
+  "block_graph": {
+    "blocks": [
+      {
+        "block_id": "block_002",
+        "title": "n차 보간의 일반적 오차식",
+        "summary": "n차 다항식 보간법의 절단 오차 일반식 R_n(x)=f^{(n+1)}(ξ)/(n+1)! ∏(x-x_i)과 등간격 h 기준으로 다항식 부분이 h^{n+1}·g(t) 형태로 일반화됨을 설명합니다. 또한 모든 차수에 대해 단일 상수형 일반공식이 존재하지 않는 이유(고차 방정식의 극값 탐색 필요)를 서술합니다.",
+        "key_concepts": [
+          "R_n(x) 오차 공식",
+          "등간격 h 표현",
+          "다항식 부분 = h^{n+1}·t(t-1)...(t-n)",
+          "일반식 부재 이유"
+        ],
+        "raw_text": "^{-6}$ 이하가  되도록  부등식을  세웁니다 .\n$$|R_2(x)| \\leqslant \\frac{e^4}{6} \\cdot \\frac{3}{8} h^3 = \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$$\n이  식을  $h$ 에  대해  풀어보겠습니다 .\n$$h^3 \\leqslant \\frac{16 \\times 10^{-6}}{e^4}$$\n12_numerical_analysis_ 오차한계  · 2021080070 计 31 韩佑硕\nNo. 1 / 4\n\n$$h^3 \\leqslant \\frac{16}{54.59815} \\times 10^{-6} \\approx 0.29305 \\times 10^{-6}$$\n양변의  세제곱근을  구합니다 .\n$$h \\leqslant \\sqrt[3]{0.29305 \\times 10^{-6}} = \\sqrt[3]{0.29305} \\times 10^{-2} \\approx 0.6642 \\times 10^{-2} \n= 0.006642$$\n✅  정답  \n절단  오차가  $10^{-6}$ 을  넘지  않게  하려면  함수표의  보폭  $h$ 는  약  $0.00664$ 보다  작거나  같게  설정해야  합니다 . \n( 또는  더  보수적인  잣대를  적용할  경우  $0.00658$ 이하로  잡습니다 .)\nUser : . 다항식  부분의  최댓값  구하기  이거는  n 차  보간을한다라고  했을떄 , ㅇ  ㅣㄹ반적인  식이있을까 ?\nAI : 네 , 아주  좋은  질문입니다 ! 결론부터  말씀드리면 , $n$ 차  보간법에  대한  일반적인  식의  ' 형태 ' 는  존재하지만 , 그  최\n댓값을  산출하는  ' 단일한  상수  공식 ( 예 : $\\frac{n+1}{2n}$ 같은  형태 )' 은  없습니다 . 차수  $n$ 이  커질수록  다항식을  미\n분하여  극댓값을  찾아야  하므로  매번  다른  상수가  도출되기  때문입니다 .\n하지만  그  규칙성과  식을  세우는  일반적인  방법은  명확하게  정립되어  있습니다 . 어떻게  식이  구성되는지  정리해  드릴\n게요 .\n1. $n$ 차  보간법의  일반적인  절단  오차  공식  \n$n$ 차  다항식  보간법 ( 노드가  $n+1$ 개일  때 ) 의  오차  공식은  다음과  같습니다 .\n$$R_n(x) = \\frac{f^{(n+1)}(\\xi)}{(n+1)!} \\prod_{i=0}^{n} (x-x_i)$$\n여기서  우",
+        "order_index": 0,
+        "source_type": "note",
+        "micro_graph": {
+          "nodes": [
+            {
+              "name": "R_2(x)",
+              "type": "Formula",
+              "source_chunk_id": 0,
+              "description": "2차 다항식 보간의 절단 오차 항(나머지 항).",
+              "keywords": [
+                "remainder",
+                "R2"
+              ]
+            },
+            {
+              "name": "h",
+              "type": "Concept",
+              "source_chunk_id": 0,
+              "description": "함수표의 보폭(간격)."
+            },
+            {
+              "name": "10^{-6}",
+              "type": "Concept",
+              "source_chunk_id": 0,
+              "description": "절단 오차의 허용 한계(토러런스)."
+            },
+            {
+              "name": "0.006642",
+              "type": "Concept",
+              "source_chunk_id": 1,
+              "description": "h의 계산된 근사 상한값(세제곱근 계산 결과)."
+            },
+            {
+              "name": "0.00658",
+              "type": "Concept",
+              "source_chunk_id": 2,
+              "description": "더 보수적으로 잡은 h의 상한값."
+            },
+            {
+              "name": "n 차 보간법",
+              "type": "Method",
+              "source_chunk_id": 2,
+              "description": "n차 다항식 보간법(노드가 n+1개일 때)."
+            },
+            {
+              "name": "R_n(x) = f^{(n+1)}(\\xi)/(n+1)! \\prod_{i=0}^{n} (x-x_i)",
+              "type": "Formula",
+              "source_chunk_id": 3,
+              "description": "n차 다항식 보간법의 일반적인 절단 오차 공식.",
+              "keywords": [
+                "오차공식",
+                "remainder"
+              ]
+            },
+            {
+              "name": "절단 오차",
+              "type": "Problem",
+              "source_chunk_id": 1,
+              "description": "다항식 보간에서 발생하는 절단(나머지) 오차."
+            },
+            {
+              "name": "韩佑硕",
+              "type": "Person",
+              "source_chunk_id": 0,
+              "description": "문서에 나타난 이름(작성자로 추정)."
+            }
+          ],
+          "edges": [
+            {
+              "start": "R_2(x)",
+              "target": "R_n(x) = f^{(n+1)}(\\xi)/(n+1)! \\prod_{i=0}^{n} (x-x_i)",
+              "type": "derives_from",
+              "source_chunk_id": 3,
+              "description": "2차 잔차항은 일반적인 n차 잔차항 공식의 특수 사례로 유도된다.",
+              "evidence": "n 차  다항식  보간법 ( 노드가  n+1  개일  때 ) 의  오차  공식은  다음과  같습니다 . $$R_n(x) = \\frac{f^{(n+1)}(\\xi)}{(n+1)!} \\prod_{i=0}^{n} (x-x_i)$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "R_2(x)",
+              "target": "h",
+              "type": "uses",
+              "source_chunk_id": 0,
+              "description": "R_2(x)의 상계식에서 h가 보폭 변수로 사용됨.",
+              "evidence": "$|R_2(x)| \\leqslant \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$",
+              "confidence": 0.9
+            },
+            {
+              "start": "R_2(x)",
+              "target": "h",
+              "type": "uses",
+              "source_chunk_id": 0,
+              "description": "부등식은 h를 포함하여 h에 대한 제약을 나타낸다.",
+              "evidence": "$|R_2(x)| \\leqslant \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$",
+              "confidence": 0.9
+            },
+            {
+              "start": "R_2(x)",
+              "target": "절단 오차",
+              "type": "defines",
+              "source_chunk_id": 0,
+              "description": "해당 부등식은 절단 오차가 10^{-6}을 넘지 않도록 하는 조건을 표현한다.",
+              "evidence": "$|R_2(x)| \\leqslant \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$",
+              "confidence": 0.8
+            },
+            {
+              "start": "0.006642",
+              "target": "절단 오차",
+              "type": "improves",
+              "source_chunk_id": 1,
+              "description": "h를 약 0.00664 이하로 설정하면 절단 오차가 허용한계(10^{-6})를 넘지 않음.",
+              "evidence": "절단  오차가  $10^{-6}$ 을  넘지  않게  하려면  함수표의  보폭  $h$ 는  약  $0.00664$ 보다  작거나  같게  설정해야  합니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "0.00658",
+              "target": "절단 오차",
+              "type": "improves",
+              "source_chunk_id": 2,
+              "description": "더 보수적인 상한(0.00658)은 절단 오차 제어를 더욱 강화함.",
+              "evidence": "( 또는  더  보수적인  잣대를  적용할  경우  $0.00658$ 이하로  잡습니다 .)",
+              "confidence": 0.8
+            },
+            {
+              "start": "0.006642",
+              "target": "0.00658",
+              "type": "contrasts_with",
+              "source_chunk_id": 1,
+              "description": "계산된 상한 0.006642와 더 보수적인 제시값 0.00658의 비교.",
+              "evidence": "절단  오차가  $10^{-6}$ 을  넘지  않게  하려면  ... $0.006642$ ... ( 또는  더  보수적인  잣대를  적용할  경우  $0.00658$ 이하로  잡습니다 .)",
+              "confidence": 0.8
+            },
+            {
+              "start": "R_n(x) = f^{(n+1)}(\\xi)/(n+1)! \\prod_{i=0}^{n} (x-x_i)",
+              "target": "절단 오차",
+              "type": "defines",
+              "source_chunk_id": 3,
+              "description": "일반적인 n차 보간의 절단 오차를 기술하는 공식이다.",
+              "evidence": "1. $n$ 차  보간법의  일반적인  절단  오차  공식  ... $$R_n(x) = \\frac{f^{(n+1)}(\\xi)}{(n+1)!} \\prod_{i=0}^{n} (x-x_i)$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "n 차 보간법",
+              "target": "R_n(x) = f^{(n+1)}(\\xi)/(n+1)! \\prod_{i=0}^{n} (x-x_i)",
+              "type": "uses",
+              "source_chunk_id": 3,
+              "description": "n차 보간법에서 절단 오차를 기술하기 위해 해당 오차 공식을 사용한다.",
+              "evidence": "n 차  다항식  보간법 ( 노드가  n+1  개일  때 ) 의  오차  공식은  다음과  같습니다 . $$R_n(x) = ...$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "R_2(x)",
+              "target": "R_n(x) = f^{(n+1)}(\\xi)/(n+1)! \\prod_{i=0}^{n} (x-x_i)",
+              "type": "example_of",
+              "source_chunk_id": 0,
+              "description": "2차 잔차항은 n차 잔차항 공식의 구체적 사례(특수 n=2 경우).",
+              "evidence": "$|R_2(x)| \\leqslant \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$",
+              "confidence": 0.7
+            },
+            {
+              "start": "R_2(x)",
+              "target": "R_2(x)",
+              "type": "derives_from",
+              "source_chunk_id": 0,
+              "description": "해당 부등식은 R_2(x)의 상계를 전개하여 얻어진 식이다.",
+              "evidence": "$|R_2(x)| \\leqslant \\frac{e^4}{6} \\cdot \\frac{3}{8} h^3 = \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$",
+              "confidence": 0.9
+            },
+            {
+              "start": "h",
+              "target": "절단 오차",
+              "type": "influences",
+              "source_chunk_id": 0,
+              "description": "보폭 h의 크기는 절단 오차 크기에 간접적으로 영향을 미친다(작을수록 오차 감소).",
+              "evidence": "$|R_2(x)| \\leqslant \\frac{e^4}{16} h^3 \\leqslant 10^{-6}$",
+              "confidence": 0.9
+            }
+          ]
+        },
+        "heading_path": [
+          "AI :",
+          "1. $n$ 차  보간법의  일반적인  절단  오차  공식",
+          "2. 다항식  부분의  일반화  ( 보폭  $h$ 기준 )",
+          "3. 왜  완벽한  ' 일반  공식 ' 이  없을까 ?"
+        ]
+      },
+      {
+        "block_id": "block_004",
+        "title": "중앙 위치와 짝수/홀수 차수",
+        "summary": "n이 짝수일 때(예: 2차,4차)는 중앙 노드가 하나 있어 그 노드와 양옆 인접 노드의 중간 지점(t = ±0.5)에서 다항식 부분이 최대가 되고, n이 홀수일 때(예: 1차,3차,5차)는 중앙에 두 노드가 있어 그 두 중앙 노드의 중간(t = 0.5)에서 최대가 됩니다. 즉, 보간 오차는 항상 설계한 '중심 구간'의 중점에서 최댓값을 가집니다.",
+        "key_concepts": [
+          "중앙 노드 유무(짝수/홀수 n)",
+          "최대 오차 위치",
+          "t = ±0.5 vs t = 0.5",
+          "함수표 설계 시 중앙 배치"
+        ],
+        "raw_text": "  주로  사용하는  $n=1, 2, 3$ 의  경우 , 함수표  설계 ( 중앙  노드  사용 ) 를  기준으로  계산된  상수는  다음과  같습\n니다 .\n1 차  보간  ( 선형  보간 , $n=1$):\n12_numerical_analysis_ 오차한계  · 2021080070 计 31 韩佑硕\nNo. 2 / 4\n\n노드  $x_0, x_1$ 사이에서  $x$ 를  찾을  때  ($0 \\leqslant t \\leqslant 1$)\n$$|t(t-1)| \\text{ 의  최댓값은  } \\frac{1}{4}$$\n👉  최댓값 : $\\frac{1}{4} h^2$\n2 차  보간  ($n=2$):\n앞선  문제에서  풀었던  것처럼  중앙  노드  $x_1$ 과  가장  가까울  때  ($-0.5 \\leqslant t \\leqslant 0.5$)\n$$|(t+1)t(t-1)| \\text{ 의  최댓값은  } \\frac{3}{8}$$\n👉  최댓값 : $\\frac{3}{8} h^3$\n3 차  보간  ($n=3$):\n중앙의  두  노드  $x_1, x_2$ 사이에서  $x$ 를  찾을  때  ($0 \\leqslant t \\leqslant 1$, 노드는  $x_0, x_1, x_2, x_3$)\n식을  $(t+1)t(t-1)(t-2)$ 로  두고  $t=0.5$ 일  때  대칭적으로  최대가  됩니다 .\n$$|(t+1)t(t-1)(t-2)| \\text{ 의 ",
+        "order_index": 1,
+        "source_type": "note",
+        "micro_graph": {
+          "nodes": [
+            {
+              "name": "함수표 설계 ( 중앙 노드 사용 )",
+              "type": "Concept",
+              "source_chunk_id": 0,
+              "description": "문서에서 기준으로 삼은 설계 방식 — 중앙 노드 사용을 전제로 한 함수표 설계"
+            },
+            {
+              "name": "1 차 보간 (선형 보간, $n=1$)",
+              "type": "Method",
+              "source_chunk_id": 0,
+              "description": "선형 보간 (n=1) 사례"
+            },
+            {
+              "name": "노드 $x_0, x_1$",
+              "type": "Concept",
+              "source_chunk_id": 1,
+              "description": "첫 번째(두 개) 노드 집합 (x0와 x1)"
+            },
+            {
+              "name": "|t(t-1)| 의  최댓값은  \\frac{1}{4}",
+              "type": "Formula",
+              "source_chunk_id": 1,
+              "description": "표현식 |t(t-1)| 의 최댓값"
+            },
+            {
+              "name": "최댓값 : \\frac{1}{4} h^2",
+              "type": "Formula",
+              "source_chunk_id": 1,
+              "description": "이 경우에 도출된 오차/상수 형태"
+            },
+            {
+              "name": "2 차 보간 ($n=2$)",
+              "type": "Method",
+              "source_chunk_id": 1,
+              "description": "2차 보간 (n=2) 사례"
+            },
+            {
+              "name": "중앙 노드 $x_1$",
+              "type": "Concept",
+              "source_chunk_id": 1,
+              "description": "중앙에 위치한 단일 노드 x1 (2차 보간에서 중심 노드)"
+            },
+            {
+              "name": "|(t+1)t(t-1)| 의  최댓값은  \\frac{3}{8}",
+              "type": "Formula",
+              "source_chunk_id": 1,
+              "description": "표현식 |(t+1)t(t-1)| 의 최댓값"
+            },
+            {
+              "name": "최댓값 : \\frac{3}{8} h^3",
+              "type": "Formula",
+              "source_chunk_id": 2,
+              "description": "2차 보간에서 도출된 상수형태 (h^3 항)"
+            },
+            {
+              "name": "3 차 보간 ($n=3$)",
+              "type": "Method",
+              "source_chunk_id": 2,
+              "description": "3차 보간 (n=3) 사례"
+            },
+            {
+              "name": "중앙의 두 노드 $x_1, x_2$",
+              "type": "Concept",
+              "source_chunk_id": 2,
+              "description": "3차 보간에서 중심을 이루는 두 노드"
+            },
+            {
+              "name": "노드 $x_0, x_1, x_2, x_3$",
+              "type": "Concept",
+              "source_chunk_id": 2,
+              "description": "3차 보간에 사용된 네 개의 노드 집합"
+            },
+            {
+              "name": "식 $(t+1)t(t-1)(t-2)$",
+              "type": "Formula",
+              "source_chunk_id": 2,
+              "description": "3차 보간에서 사용한 다항식 인자"
+            },
+            {
+              "name": "t=0.5 일 때 대칭적으로 최대",
+              "type": "Formula",
+              "source_chunk_id": 2,
+              "description": "위 다항식이 t=0.5에서 대칭적으로 최대가 됨을 지시하는 진술"
+            }
+          ],
+          "edges": [
+            {
+              "start": "1 차 보간 (선형 보간, $n=1$)",
+              "target": "함수표 설계 ( 중앙 노드 사용 )",
+              "type": "applied_in",
+              "source_chunk_id": 0,
+              "description": "문서는 n=1 경우를 함수표 설계(중앙 노드 사용)를 기준으로 계산함",
+              "evidence": "주로  사용하는  $n=1, 2, 3$ 의  경우 , 함수표  설계 ( 중앙  노드  사용 ) 를  기준으로  계산된  상수는  다음과  같습니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "2 차 보간 ($n=2$)",
+              "target": "함수표 설계 ( 중앙 노드 사용 )",
+              "type": "applied_in",
+              "source_chunk_id": 0,
+              "description": "문서는 n=2 경우를 함수표 설계(중앙 노드 사용)를 기준으로 계산함",
+              "evidence": "주로  사용하는  $n=1, 2, 3$ 의  경우 , 함수표  설계 ( 중앙  노드  사용 ) 를  기준으로  계산된  상수는  다음과  같습니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "3 차 보간 ($n=3$)",
+              "target": "함수표 설계 ( 중앙 노드 사용 )",
+              "type": "applied_in",
+              "source_chunk_id": 0,
+              "description": "문서는 n=3 경우를 함수표 설계(중앙 노드 사용)를 기준으로 계산함",
+              "evidence": "주로  사용하는  $n=1, 2, 3$ 의  경우 , 함수표  설계 ( 중앙  노드  사용 ) 를  기준으로  계산된  상수는  다음과  같습니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "1 차 보간 (선형 보간, $n=1$)",
+              "target": "|t(t-1)| 의  최댓값은  \\frac{1}{4}",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "1차 보간의 오차 상수 계산에서 |t(t-1)|의 최대값을 사용",
+              "evidence": "$$|t(t-1)| \\text{ 의  최댓값은  } \\frac{1}{4}$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "최댓값 : \\frac{1}{4} h^2",
+              "target": "|t(t-1)| 의  최댓값은  \\frac{1}{4}",
+              "type": "derives_from",
+              "source_chunk_id": 1,
+              "description": "h^2 형태의 최댓값은 |t(t-1)|의 최대값(1/4)로부터 유도됨",
+              "evidence": " |t(t-1)| \\text{ 의  최댓값은  } \\frac{1}{4}    👉  최댓값 : $\\frac{1}{4} h^2$",
+              "confidence": 0.9
+            },
+            {
+              "start": "1 차 보간 (선형 보간, $n=1$)",
+              "target": "최댓값 : \\frac{1}{4} h^2",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "1차 보간의 결과적 상수(오차항)로서 해당 최댓값 표현을 사용",
+              "evidence": "👉  최댓값 : $\\frac{1}{4} h^2$",
+              "confidence": 0.9
+            },
+            {
+              "start": "2 차 보간 ($n=2$)",
+              "target": "|(t+1)t(t-1)| 의  최댓값은  \\frac{3}{8}",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "2차 보간의 최대치 계산에서 해당 삼차 표현식의 최대값을 사용",
+              "evidence": "$$|(t+1)t(t-1)| \\text{ 의  최댓값은  } \\frac{3}{8}$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "최댓값 : \\frac{3}{8} h^3",
+              "target": "|(t+1)t(t-1)| 의  최댓값은  \\frac{3}{8}",
+              "type": "derives_from",
+              "source_chunk_id": 1,
+              "description": "h^3 형태의 최댓값은 해당 표현식의 최대값(3/8)으로부터 유도됨",
+              "evidence": "$$|(t+1)t(t-1)| \\text{ 의  최댓값은  } \\frac{3}{8}    👉  최댓값 : $\\frac{3}{8} h^3$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "2 차 보간 ($n=2$)",
+              "target": "최댓값 : \\frac{3}{8} h^3",
+              "type": "uses",
+              "source_chunk_id": 2,
+              "description": "문서에서 2차 보간의 상수로 3/8 h^3를 제시함",
+              "evidence": "👉  최댓값 : $\\frac{3}{8} h^3$",
+              "confidence": 0.9
+            },
+            {
+              "start": "3 차 보간 ($n=3$)",
+              "target": "식 $(t+1)t(t-1)(t-2)$",
+              "type": "uses",
+              "source_chunk_id": 2,
+              "description": "3차 보간에서 오차항 분석에 이 다항식 인자를 사용함",
+              "evidence": "식을  $(t+1)t(t-1)(t-2)$ 로  두고  $t=0.5$ 일  때  대칭적으로  최대가  됩니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "t=0.5 일 때 대칭적으로 최대",
+              "target": "식 $(t+1)t(t-1)(t-2)$",
+              "type": "derives_from",
+              "source_chunk_id": 2,
+              "description": "최대가 발생하는 위치(t=0.5)는 해당 다항식으로부터 결정됨",
+              "evidence": "식을  $(t+1)t(t-1)(t-2)$ 로  두고  $t=0.5$ 일  때  대칭적으로  최대가  됩니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "중앙의 두 노드 $x_1, x_2$",
+              "target": "노드 $x_0, x_1, x_2, x_3$",
+              "type": "part_of",
+              "source_chunk_id": 2,
+              "description": "중앙의 두 노드(x1,x2)는 전체 노드 집합(x0..x3)의 부분집합임",
+              "evidence": "중앙의  두  노드  $x_1, x_2$ 사이에서  $x$ 를  찾을  때  ($0 \\leqslant t \\leqslant 1$, 노드는  $x_0, x_1, x_2, x_3$)",
+              "confidence": 0.9
+            },
+            {
+              "start": "중앙 노드 $x_1$",
+              "target": "노드 $x_0, x_1$",
+              "type": "part_of",
+              "source_chunk_id": 1,
+              "description": "중앙 노드 x1은 x0,x1 노드 집합의 일부",
+              "evidence": "앞선  문제에서  풀었던  것처럼  중앙  노드  $x_1$ 과  가장  가까울  때  ($-0.5 \\leqslant t \\leqslant 0.5$)",
+              "confidence": 0.9
+            },
+            {
+              "start": "2 차 보간 ($n=2$)",
+              "target": "중앙 노드 $x_1$",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "2차 보간에서 중앙 노드 x1 근처의 t 구간을 고려함",
+              "evidence": "앞선  문제에서  풀었던  것처럼  중앙  노드  $x_1$ 과  가장  가까울  때  ($-0.5 \\leqslant t \\leqslant 0.5$)",
+              "confidence": 0.8
+            },
+            {
+              "start": "3 차 보간 ($n=3$)",
+              "target": "노드 $x_0, x_1, x_2, x_3$",
+              "type": "uses",
+              "source_chunk_id": 2,
+              "description": "3차 보간은 네 개의 인접 노드(x0..x3)를 사용하여 분석함",
+              "evidence": "중앙의  두  노드  $x_1, x_2$ 사이에서  $x$ 를  찾을  때  ($0 \\leqslant t \\leqslant 1$, 노드는  $x_0, x_1, x_2, x_3$)",
+              "confidence": 0.9
+            },
+            {
+              "start": "|t(t-1)| 의  최댓값은  \\frac{1}{4}",
+              "target": "최댓값 : \\frac{1}{4} h^2",
+              "type": "influences",
+              "source_chunk_id": 1,
+              "description": "수치적 최대값(1/4)이 최종 오차형태(1/4 h^2)에 영향을 줌 (간접적 연결)",
+              "evidence": "$|t(t-1)| \\text{ 의  최댓값은  } \\frac{1}{4}    👉  최댓값 : $\\frac{1}{4} h^2$",
+              "confidence": 0.4
+            },
+            {
+              "start": "|(t+1)t(t-1)| 의  최댓값은  \\frac{3}{8}",
+              "target": "최댓값 : \\frac{3}{8} h^3",
+              "type": "influences",
+              "source_chunk_id": 1,
+              "description": "표현식의 최대값(3/8)이 h^3 항의 계수에 영향을 줌 (간접적 연결)",
+              "evidence": "$|(t+1)t(t-1)| \\text{ 의  최댓값은  } \\frac{3}{8}    👉  최댓값 : $\\frac{3}{8} h^3$",
+              "confidence": 0.4
+            },
+            {
+              "start": "식 $(t+1)t(t-1)(t-2)$",
+              "target": "t=0.5 일 때 대칭적으로 최대",
+              "type": "influences",
+              "source_chunk_id": 2,
+              "description": "해당 다항식 형태가 t=0.5에서 최대라는 성질을 결정함 (간접적 기술)",
+              "evidence": "식을  $(t+1)t(t-1)(t-2)$ 로  두고  $t=0.5$ 일  때  대칭적으로  최대가  됩니다 .",
+              "confidence": 0.4
+            },
+            {
+              "start": "노드 $x_0, x_1$",
+              "target": "함수표 설계 ( 중앙 노드 사용 )",
+              "type": "part_of",
+              "source_chunk_id": 0,
+              "description": "개별 노드 집합은 함수표 설계(중앙 노드 사용)라는 설계 맥락의 일부로 고려됨 (약한 연결)",
+              "evidence": "주로  사용하는  $n=1, 2, 3$ 의  경우 , 함수표  설계 ( 중앙  노드  사용 ) 를  기준으로  계산된  상수는  다음과  같습니다 .",
+              "confidence": 0.4
+            }
+          ]
+        },
+        "heading_path": [
+          "AI :",
+          "결론적으로 :"
+        ]
+      },
+      {
+        "block_id": "block_003",
+        "title": "차수별 상수 예시 (n=1,2,3,4,5)",
+        "summary": "자주 쓰이는 낮은 차수들에 대해 다항식 부분의 최댓값 상수를 제시합니다: n=1 -> 1/4 h^2, n=2 -> 3/8 h^3, n=3 -> 9/16 h^4. 이어서 노드 5개(4차)와 노드 6개(5차)에 대한 실제 계산을 보여주어 각각 45/32 h^5 및 225/64 h^6임을 유도합니다.",
+        "key_concepts": [
+          "n=1: 1/4 h^2",
+          "n=2: 3/8 h^3",
+          "n=3: 9/16 h^4",
+          "n=4: 45/32 h^5",
+          "n=5: 225/64 h^6"
+        ],
+        "raw_text": "가  궁금해하는  ' 다항식  부분 ' 은  바로  $\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$ 입니다 .\n2. 다항식  부분의  일반화  ( 보폭  $h$ 기준 )  \n등간격  보폭  $h$ 를  사용하므로 , $x_i = x_0 + ih$ 라고  할  수  있습니다 .\n여기서  계산을  쉽게  하기  위해  $x$ 를  노드  간의  상대적  위치를  나타내는  매개변수  $t$ 로  치환합니다 . ($x = x_0 + th$)\n그러면  다항식  부분은  다음과  같이  $h^{n+1}$ 을  밖으로  빼낸  형태로  일반화할  수  있습니다 .\n$$\\prod_{i=0}^{n} (x-x_i) = h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)$$\n즉 , $n$ 차  보간에서  다항식  부분의  최댓값은  항상  어떤  $\\text{ 상수 } \\times h^{n+1}$ 형태를  가집니다 . 여기서  ' 상\n수 ' 는  함수  $g(t) = t(t-1)\\dots(t-n)$ 의  최댓값을  구해서  결정됩니다 .\n3. 왜  완벽한  ' 일반  공식 ' 이  없을까 ?  \n함수표를  설계할  때는  오차를  최소화하기  위해  구하려는  값  $x$ 를  노드들의  중앙에  가장  가깝게  위치시킵니다 .\n따라서  $t$ 의  범위를  중앙  근처로  한정하고  $g(t)$ 의  최댓값을  구해야  하는데 , 차수  $n$ 이  3 이상만  되어도  $g'(t)=0$ 을 \n만족하는  극값을  찾는  과정이  고차  방정식의  해를  구하는  것이  되어버려  간단한  유리수나  무리수  공식  하나로  딱  떨어\n지지  않습니다 .\n4. 자주  쓰이는  차수 ($n$) 별  다항식  부분의  최댓값  \n수치해석에",
+        "order_index": 2,
+        "source_type": "note",
+        "micro_graph": {
+          "nodes": [
+            {
+              "name": "다항식 부분",
+              "type": "Concept",
+              "source_chunk_id": 0
+            },
+            {
+              "name": "$\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$",
+              "type": "Formula",
+              "source_chunk_id": 0
+            },
+            {
+              "name": "등간격 보폭 h",
+              "type": "Concept",
+              "source_chunk_id": 0
+            },
+            {
+              "name": "$x_i = x_0 + ih$",
+              "type": "Formula",
+              "source_chunk_id": 0
+            },
+            {
+              "name": "$x = x_0 + th$",
+              "type": "Formula",
+              "source_chunk_id": 0
+            },
+            {
+              "name": "h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)",
+              "type": "Formula",
+              "source_chunk_id": 1
+            },
+            {
+              "name": "g(t) = t(t-1)\\dots(t-n)",
+              "type": "Formula",
+              "source_chunk_id": 1
+            },
+            {
+              "name": "상수 × h^{n+1}",
+              "type": "Formula",
+              "source_chunk_id": 1
+            },
+            {
+              "name": "다항식 부분의 최댓값",
+              "type": "Concept",
+              "source_chunk_id": 1
+            },
+            {
+              "name": "n 차 보간",
+              "type": "Concept",
+              "source_chunk_id": 1
+            },
+            {
+              "name": "구하려는 값 x 를 노드들의 중앙에 가장 가깝게 위치시킵니다",
+              "type": "Method",
+              "source_chunk_id": 2
+            },
+            {
+              "name": "t의 범위를 중앙 근처로 한정",
+              "type": "Method",
+              "source_chunk_id": 2
+            },
+            {
+              "name": "g'(t)=0",
+              "type": "Formula",
+              "source_chunk_id": 2
+            },
+            {
+              "name": "고차 방정식의 해를 구하는 것",
+              "type": "Problem",
+              "source_chunk_id": 2
+            },
+            {
+              "name": "완벽한 '일반 공식' 없음",
+              "type": "Problem",
+              "source_chunk_id": 2
+            },
+            {
+              "name": "오차",
+              "type": "Problem",
+              "source_chunk_id": 2
+            },
+            {
+              "name": "수치해석",
+              "type": "Concept",
+              "source_chunk_id": 2
+            }
+          ],
+          "edges": [
+            {
+              "start": "다항식 부분",
+              "target": "$\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$",
+              "type": "defines",
+              "source_chunk_id": 0,
+              "evidence": "가  궁금해하는  ' 다항식  부분 ' 은  바로  $\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$ 입니다 .",
+              "confidence": 0.95
+            },
+            {
+              "start": "$\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$",
+              "target": "h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)",
+              "type": "equivalent_to",
+              "source_chunk_id": 1,
+              "evidence": "$\\prod_{i=0}^{n} (x-x_i) = h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)$",
+              "confidence": 0.95
+            },
+            {
+              "start": "$x_i = x_0 + ih$",
+              "target": "등간격 보폭 h",
+              "type": "uses",
+              "source_chunk_id": 0,
+              "evidence": "등간격 보폭 h 를  사용하므로 , $x_i = x_0 + ih 라고  할  수  있습니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "다항식 부분",
+              "target": "$x = x_0 + th$",
+              "type": "uses",
+              "source_chunk_id": 0,
+              "evidence": "여기서  계산을  쉽게  하기  위해  $x$ 를  노드  간의  상대적  위치를  나타내는  매개변수  $t$ 로  치환합니다 . ($x = x_0 + th$)",
+              "confidence": 0.9
+            },
+            {
+              "start": "다항식 부분의 최댓값",
+              "target": "g(t) = t(t-1)\\dots(t-n)",
+              "type": "requires",
+              "source_chunk_id": 1,
+              "evidence": "여기서  ' 상수 ' 는  함수  $g(t) = t(t-1)\\dots(t-n)$ 의  최댓값을  구해서  결정됩니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "다항식 부분의 최댓값",
+              "target": "n 차 보간",
+              "type": "part_of",
+              "source_chunk_id": 1,
+              "evidence": "즉 , $n$ 차  보간에서  다항식  부분의  최댓값은  항상  어떤  $\\text{ 상수 } \\times h^{n+1}$ 형태를  가집니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "g'(t)=0",
+              "target": "고차 방정식의 해를 구하는 것",
+              "type": "leads_to",
+              "source_chunk_id": 2,
+              "evidence": "g'(t)=0 을 만족하는 극값을 찾는 과정이 고차 방정식의 해를 구하는 것이 되어버려 ...",
+              "confidence": 0.9
+            },
+            {
+              "start": "고차 방정식의 해를 구하는 것",
+              "target": "완벽한 '일반 공식' 없음",
+              "type": "causes",
+              "source_chunk_id": 2,
+              "evidence": "차수  $n$ 이  3 이상만  되어도  ... 고차 방정식의 해를 구하는 것이 되어버려  간단한  유리수나  무리수  공식  하나로  딱  떨어지지  않습니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "구하려는 값 x 를 노드들의 중앙에 가장 가깝게 위치시킵니다",
+              "target": "오차",
+              "type": "improves",
+              "source_chunk_id": 2,
+              "evidence": "함수표를  설계할  때는  오차를  최소화하기  위해  구하려는  값  $x$ 를  노드들의  중앙에  가장  가깝게  위치시킵니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "t의 범위를 중앙 근처로 한정",
+              "target": "g(t) = t(t-1)\\dots(t-n)",
+              "type": "requires",
+              "source_chunk_id": 2,
+              "evidence": "따라서  $t$ 의  범위를  중앙  근처로  한정하고  $g(t)$ 의  최댓값을  구해야  하는데",
+              "confidence": 0.9
+            },
+            {
+              "start": "n 차 보간",
+              "target": "수치해석",
+              "type": "applied_in",
+              "source_chunk_id": 2,
+              "evidence": "수치해석에",
+              "confidence": 0.75
+            },
+            {
+              "start": "h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)",
+              "target": "$\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$",
+              "type": "derives_from",
+              "source_chunk_id": 1,
+              "evidence": "$\\prod_{i=0}^{n} (x-x_i) = h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)$",
+              "confidence": 0.85
+            },
+            {
+              "start": "h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)",
+              "target": "$x = x_0 + th$",
+              "type": "derives_from",
+              "source_chunk_id": 0,
+              "evidence": "($x = x_0 + th$) 그러면 다항식 부분은 다음과 같이 $h^{n+1}$ 을 밖으로 빼낸 형태로 일반화할 수 있습니다 .",
+              "confidence": 0.5
+            },
+            {
+              "start": "h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)",
+              "target": "g(t) = t(t-1)\\dots(t-n)",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "evidence": "$\\prod_{i=0}^{n} (x-x_i) = h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)$",
+              "confidence": 0.9
+            },
+            {
+              "start": "다항식 부분의 최댓값",
+              "target": "상수 × h^{n+1}",
+              "type": "equivalent_to",
+              "source_chunk_id": 1,
+              "evidence": "즉 , $n$ 차  보간에서  다항식  부분의  최댓값은  항상  어떤  $\\text{ 상수 } \\times h^{n+1}$ 형태를  가집니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "상수 × h^{n+1}",
+              "target": "g(t) = t(t-1)\\dots(t-n)",
+              "type": "requires",
+              "source_chunk_id": 1,
+              "evidence": "여기서  ' 상수 ' 는  함수  $g(t) = t(t-1)\\dots(t-n)$ 의  최댓값을  구해서  결정됩니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "g'(t)=0",
+              "target": "g(t) = t(t-1)\\dots(t-n)",
+              "type": "uses",
+              "source_chunk_id": 2,
+              "evidence": "g'(t)=0 을 만족하는 극값을 찾는 과정이 ...",
+              "confidence": 0.9
+            },
+            {
+              "start": "구하려는 값 x 를 노드들의 중앙에 가장 가깝게 위치시킵니다",
+              "target": "t의 범위를 중앙 근처로 한정",
+              "type": "leads_to",
+              "source_chunk_id": 2,
+              "evidence": "따라서  $t$ 의  범위를  중앙  근처로  한정하고  $g(t)$ 의  최댓값을  구해야  하는데",
+              "confidence": 0.8
+            },
+            {
+              "start": "다항식 부분",
+              "target": "n 차 보간",
+              "type": "part_of",
+              "source_chunk_id": 1,
+              "evidence": "즉 , $n$ 차  보간에서  다항식  부분의  최댓값은 ...",
+              "confidence": 0.9
+            },
+            {
+              "start": "$\\prod_{i=0}^{n} (x-x_i) = (x-x_0)(x-x_1)\\cdots(x-x_n)$",
+              "target": "$x_i = x_0 + ih$",
+              "type": "uses",
+              "source_chunk_id": 0,
+              "evidence": "등간격 보폭 h 를  사용하므로 , $x_i = x_0 + ih 라고  할  수  있습니다 .",
+              "confidence": 0.8
+            },
+            {
+              "start": "다항식 부분",
+              "target": "수치해석",
+              "type": "applied_in",
+              "source_chunk_id": 2,
+              "evidence": "수치해석에",
+              "confidence": 0.75
+            },
+            {
+              "start": "g'(t)=0",
+              "target": "고차 방정식의 해를 구하는 것",
+              "type": "causes",
+              "source_chunk_id": 2,
+              "evidence": "g'(t)=0 을 만족하는 극값을 찾는 과정이 고차 방정식의 해를 구하는 것이 되어버려 ...",
+              "confidence": 0.4
+            },
+            {
+              "start": "상수 × h^{n+1}",
+              "target": "다항식 부분의 최댓값",
+              "type": "part_of",
+              "source_chunk_id": 1,
+              "evidence": "다항식 부분의 최댓값은 항상 어떤 $\\text{ 상수 } \\times h^{n+1}$ 형태를 갖습니다 .",
+              "confidence": 0.8
+            },
+            {
+              "start": "구하려는 값 x 를 노드들의 중앙에 가장 가깝게 위치시킵니다",
+              "target": "$x = x_0 + th$",
+              "type": "requires",
+              "source_chunk_id": 0,
+              "evidence": "여기서  계산을  쉽게  하기  위해  $x$ 를  노드  간의  상대적  위치를  나타내는  매개변수  $t$ 로  치환합니다 . ($x = x_0 + th$)",
+              "confidence": 0.4
+            },
+            {
+              "start": "t의 범위를 중앙 근처로 한정",
+              "target": "다항식 부분의 최댓값",
+              "type": "improves",
+              "source_chunk_id": 2,
+              "evidence": "따라서  $t$ 의  범위를  중앙  근처로  한정하고  $g(t)$ 의  최댓값을  구해야  하는데",
+              "confidence": 0.4
+            },
+            {
+              "start": "h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)",
+              "target": "등간격 보폭 h",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "evidence": "$\\prod_{i=0}^{n} (x-x_i) = h^{n+1} \\cdot t(t-1)(t-2)\\cdots(t-n)$",
+              "confidence": 0.9
+            }
+          ]
+        },
+        "heading_path": [
+          "4. 자주  쓰이는  차수 ($n$) 별  다항식  부분의  최댓값",
+          "User : 5 개일  경우에는 ?",
+          "AI :"
+        ]
+      },
+      {
+        "block_id": "block_001",
+        "title": "문제 및 2차 보간 풀이",
+        "summary": "구간 [-4,4]에서 e^x의 등간격 노드 함수표로 2차 보간을 할 때 절단 오차가 10^{-6}을 넘지 않도록 하는 보폭 h를 구하는 문제와 그 풀이입니다. 오차식, 도함수의 최댓값, 다항식 부분의 최댓값을 유도하고 이를 이용해 h의 상한을 계산합니다.",
+        "key_concepts": [
+          "절단 오차",
+          "2차 보간법",
+          "오차 공식",
+          "도함수 최댓값",
+          "다항식 부분 최댓값",
+          "보폭 h 계산"
+        ],
+        "raw_text": "User:  이거  풀어봐봐\nAI : \n제공해주신  이미지는  중국어로  작성된  수치해석 (Numerical Analysis) 보간법  문제입니다 . 먼저  문제를  한국어로  번역\n한  뒤 , 단계별로  상세히  풀어드리겠습니다 .\n📝  문제  번역  \n15. 구간  $-4 \\leqslant x \\leqslant 4$ 에서  $f(x)=e^x$ 의  등간격  노드  함수표가  주어졌다 . 2 차  보간법\n(quadratic interpolation) 을  이용하여  $e^x$ 의  근사값을  구할  때 , 절단  오차 (truncation error) 가 \n$10^{-6}$ 을  넘지  않게  하려면  함수표의  보폭 (step size) $h$ 는  얼마로  취해야  하는가 ?\n \n💡  풀이  과정  \n1. 2 차  보간법의  오차  공식\n2 차  다항식  보간법 ( 노드가  3 개일  때 ) 의  절단  오차  한계  공식은  다음과  같습니다 .\n$$R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)$$\n여기서  $x_0, x_1, x_2$ 는  간격이  $h$ 인  인접한  세  노드이며 , $\\xi$ 는  이  노드들과  $x$ 를  포함하는  구간  내의  어떤 \n값입니다 .\n2. 도함수의  최댓값  구하기\n주어진  함수가  $f(x) = e^x$ 이므로 , 이를  세  번  미분한  도함수  역시  $f^{(3)}(x) = e^x$ 입니다 .\n전체  구간  $[-4, 4]$ 에서  도함수가  가질  수  있는  최댓값 ($M_3$) 은  $x=4$ 일  때  발생합니다 .\n$$M_3 = \\max |f^{(3)}(x)| = e^4 \\approx 54.59815$$\n3. 다항식  부분의  최댓값  구하기\n함수표를  이용하여  보간할  때 , 오차를  최소화하기  위해  보통  우리가  구하려는  점  $x$ 와  가장  가까운  노드를  중심  노드\n($x_1$) 로  선택합니다 .\n따라서  $x$ 는  $[x_1 - \\frac{h}{2}, x_1 + \\frac{h}{2}]$ 구간에  있다고  가정할  수  있습니다 .\n$x = x_1 + th$ ( 단 , $-0.5 \\leqslant t \\leqslant 0.5$) 라고  치환하면  다음과  같이  정리됩니다 .\n$$|(x-x_0)(x-x_1)(x-x_2)| = h^3 |(t+1)t(t-1)| = h^3 |t^3 - t|$$\n구간  $[-0.5, 0.5]$ 에서  함수  $|t^3 - t|$ 의  최댓값은  양  끝점인  $t = \\pm 0.5$ 일  때  발생하며 , 그  값은  $\\frac{3}{8}$ \n입니다 .\n따라서  다항식  부분의  최댓값은  $\\frac{3}{8}h^3$ 이  됩니다 .\n( 참고 : 만약  중심  노드와  가깝다는  가정  없이  단순히  전체  $[x_0, x_2]$ 구간을  기준으로  잡는다면  최댓값은 \n$\\frac{2\\sqrt{3}}{9}h^3$ 이  됩니다 . 하지만  일반적으로  ' 함수표  설계 ' 문제에서는  가장  가까운  노드를  선택하는 \n$\\frac{3}{8}h^3$ 기준을  표준으로  사용합니다 .)\n4. 보폭  $h$ 계산하기\n이제  오차가  $1",
+        "order_index": 3,
+        "source_type": "note",
+        "micro_graph": {
+          "nodes": [
+            {
+              "name": "2 차 보간법",
+              "type": "Method",
+              "source_chunk_id": 0,
+              "description": "quadratic interpolation (2nd-degree polynomial interpolation)"
+            },
+            {
+              "name": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "type": "Formula",
+              "source_chunk_id": 1,
+              "description": "절단 오차(2차 보간)의 오차 항 공식"
+            },
+            {
+              "name": "f(x)=e^x",
+              "type": "Formula",
+              "source_chunk_id": 0,
+              "description": "주어진 함수"
+            },
+            {
+              "name": "f^{(3)}(x)=e^x",
+              "type": "Formula",
+              "source_chunk_id": 2,
+              "description": "f(x)=e^x의 세 번째 도함수"
+            },
+            {
+              "name": "구간 [-4, 4]",
+              "type": "Period",
+              "source_chunk_id": 0,
+              "description": "문제에서 고려한 x의 구간"
+            },
+            {
+              "name": "M_3",
+              "type": "Formula",
+              "source_chunk_id": 2,
+              "description": "세 번째 도함수의 최대값 M_3 = max |f^{(3)}(x)|"
+            },
+            {
+              "name": "x_0, x_1, x_2",
+              "type": "Concept",
+              "source_chunk_id": 1,
+              "description": "간격이 h인 인접한 세 노드"
+            },
+            {
+              "name": "보폭 h",
+              "type": "Concept",
+              "source_chunk_id": 0,
+              "description": "등간격 노드 함수표의 스텝 크기 (step size)"
+            },
+            {
+              "name": "중심 노드 (x_1)",
+              "type": "Concept",
+              "source_chunk_id": 3,
+              "description": "보간에서 기준으로 삼는 가운데 노드"
+            },
+            {
+              "name": "x = x_1 + t h",
+              "type": "Formula",
+              "source_chunk_id": 3,
+              "description": "치환 (탐색 변수 t를 이용한 표현)"
+            },
+            {
+              "name": "|(x-x_0)(x-x_1)(x-x_2)| = h^3 |t^3 - t|",
+              "type": "Formula",
+              "source_chunk_id": 3,
+              "description": "치환 후 다항식 부분 표현"
+            },
+            {
+              "name": "다항식 부분의 최댓값 = (3/8) h^3",
+              "type": "Formula",
+              "source_chunk_id": 3,
+              "description": "중심 노드 기준에서 다항식 인자 부분의 최대값"
+            },
+            {
+              "name": "전체 기준 최댓값 = (2\\sqrt{3}/9) h^3",
+              "type": "Formula",
+              "source_chunk_id": 4,
+              "description": "전체 [x_0,x_2] 기준으로 잡았을 때의 다항식 부분 최댓값(대안)"
+            },
+            {
+              "name": "등간격 노드 함수표",
+              "type": "Concept",
+              "source_chunk_id": 0,
+              "description": "등간격으로 배치된 노드들의 표 (function table with equal spacing)"
+            },
+            {
+              "name": "오차 허용치 10^{-6}",
+              "type": "Problem",
+              "source_chunk_id": 0,
+              "description": "절단 오차가 넘지 않아야 하는 상한 (허용 오차)"
+            },
+            {
+              "name": "e^4",
+              "type": "Formula",
+              "source_chunk_id": 2,
+              "description": "M_3의 값으로 계산된 상수"
+            },
+            {
+              "name": "t (치환 변수)",
+              "type": "Concept",
+              "source_chunk_id": 3,
+              "description": "치환에서 사용된 무차원 변수 (x = x_1 + t h, -0.5 ≤ t ≤ 0.5)"
+            }
+          ],
+          "edges": [
+            {
+              "start": "2 차 보간법",
+              "target": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "type": "defines",
+              "source_chunk_id": 1,
+              "description": "오차 항 공식이 2차 보간법의 절단 오차 한계를 제시함",
+              "evidence": "2 차 다항식 보간법 ( 노드가 3 개일 때 ) 의 절단 오차 한계 공식은 다음과 같습니다 . $$R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "target": "f^{(3)}(x)=e^x",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "오차 공식은 세 번째 도함수 f^{(3)}을 포함함",
+              "evidence": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "confidence": 0.9
+            },
+            {
+              "start": "f^{(3)}(x)=e^x",
+              "target": "f(x)=e^x",
+              "type": "derives_from",
+              "source_chunk_id": 2,
+              "description": "주어진 함수의 미분으로 세 번째 도함수가 유도됨",
+              "evidence": "주어진 함수가 f(x) = e^x 이므로 , 이를 세 번 미분한 도함수 역시 f^{(3)}(x) = e^x 입니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "M_3",
+              "target": "f^{(3)}(x)=e^x",
+              "type": "derives_from",
+              "source_chunk_id": 2,
+              "description": "M_3는 f^{(3)}의 절대값의 최대값으로 정의됨",
+              "evidence": "M_3 = \\max |f^{(3)}(x)| = e^4 \\approx 54.59815",
+              "confidence": 0.9
+            },
+            {
+              "start": "M_3",
+              "target": "e^4",
+              "type": "equivalent_to",
+              "source_chunk_id": 2,
+              "description": "M_3가 e^4와 같은 값으로 계산됨",
+              "evidence": "M_3 = \\max |f^{(3)}(x)| = e^4 \\approx 54.59815",
+              "confidence": 0.9
+            },
+            {
+              "start": "M_3",
+              "target": "구간 [-4, 4]",
+              "type": "occurs_in",
+              "source_chunk_id": 2,
+              "description": "전체 구간 [-4,4]에서 세 번째 도함수의 최댓값이 얻어짐 (x=4에서)",
+              "evidence": "전체 구간 $[-4, 4]$ 에서 도함수가 가질 수 있는 최댓값 ($M_3$) 은 $x=4$ 일 때 발생합니다 .",
+              "confidence": 0.8
+            },
+            {
+              "start": "등간격 노드 함수표",
+              "target": "보폭 h",
+              "type": "uses",
+              "source_chunk_id": 0,
+              "description": "함수표는 등간격인 보폭 h를 가정하고 생성됨",
+              "evidence": "함수표의 보폭 (step size) $h$",
+              "confidence": 0.9
+            },
+            {
+              "start": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "target": "보폭 h",
+              "type": "uses",
+              "source_chunk_id": 3,
+              "description": "오차 항의 다항식 부분은 h^3에 비례함",
+              "evidence": "|(x-x_0)(x-x_1)(x-x_2)| = h^3 |(t+1)t(t-1)| = h^3 |t^3 - t|",
+              "confidence": 0.9
+            },
+            {
+              "start": "중심 노드 (x_1)",
+              "target": "x_0, x_1, x_2",
+              "type": "part_of",
+              "source_chunk_id": 3,
+              "description": "중심 노드 x_1은 세 인접 노드 집합의 구성원임",
+              "evidence": "보통 우리가 구하려는 점 x와 가장 가까운 노드를 중심 노드 (x_1) 로 선택합니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "x = x_1 + t h",
+              "target": "중심 노드 (x_1)",
+              "type": "uses",
+              "source_chunk_id": 3,
+              "description": "치환식은 중심 노드 x_1을 기준으로 정의됨",
+              "evidence": "x = x_1 + th ( 단 , -0.5 \\leqslant t \\leqslant 0.5 ) 라고 치환하면...",
+              "confidence": 0.9
+            },
+            {
+              "start": "x = x_1 + t h",
+              "target": "보폭 h",
+              "type": "uses",
+              "source_chunk_id": 3,
+              "description": "치환식은 보폭 h를 포함함",
+              "evidence": "x = x_1 + th ( 단 , -0.5 \\leqslant t \\leqslant 0.5 ) 라고 치환하면...",
+              "confidence": 0.9
+            },
+            {
+              "start": "|(x-x_0)(x-x_1)(x-x_2)| = h^3 |t^3 - t|",
+              "target": "x = x_1 + t h",
+              "type": "derives_from",
+              "source_chunk_id": 3,
+              "description": "치환을 적용하여 원래 다항식 표현이 h^3 |t^3 - t| 형태로 유도됨",
+              "evidence": "x = x_1 + th ( 단 , -0.5 \\leqslant t \\leqslant 0.5 ) 라고 치환하면 다음과 같이 정리됩니다 . $$|(x-x_0)(x-x_1)(x-x_2)| = h^3 |(t+1)t(t-1)| = h^3 |t^3 - t|$$",
+              "confidence": 0.9
+            },
+            {
+              "start": "|(x-x_0)(x-x_1)(x-x_2)| = h^3 |t^3 - t|",
+              "target": "다항식 부분의 최댓값 = (3/8) h^3",
+              "type": "leads_to",
+              "source_chunk_id": 3,
+              "description": "t 구간에서 |t^3 - t|의 최대값을 구해 다항식 부분의 최대값을 얻음",
+              "evidence": "|(x-x_0)(x-x_1)(x-x_2)| = h^3 |t^3 - t| ... 구간 [-0.5, 0.5] 에서 함수 |t^3 - t| 의 최댓값은 ... 그 값은 \\frac{3}{8} 입니다 . 따라서 다항식 부분의 최댓값은 \\frac{3}{8}h^3 이 됩니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "다항식 부분의 최댓값 = (3/8) h^3",
+              "target": "전체 기준 최댓값 = (2\\sqrt{3}/9) h^3",
+              "type": "contrasts_with",
+              "source_chunk_id": 4,
+              "description": "중심 노드 기준과 전체 구간 기준의 다항식 부분 최댓값이 다름",
+              "evidence": "만약 중심 노드와 가깝다는 가정 없이 단순히 전체 $[x_0, x_2]$ 구간을 기준으로 잡는다면 최댓값은 $\\frac{2\\sqrt{3}}{9}h^3$ 입니다 . 하지만 일반적으로 '함수표 설계' 문제에서는 가장 가까운 노드를 선택하는 $\\frac{3}{8}h^3$ 기준을 표준으로 사용합니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "2 차 보간법",
+              "target": "등간격 노드 함수표",
+              "type": "applied_in",
+              "source_chunk_id": 0,
+              "description": "문제에서 등간격 노드 함수표를 이용해 2차 보간법을 적용함",
+              "evidence": "구간 $-4 \\leqslant x \\leqslant 4$ 에서 $f(x)=e^x$ 의 등간격 노드 함수표가 주어졌다 . 2 차 보간법 (quadratic interpolation) 을 이용하여 $e^x$ 의 근사값을 구할 때 ...",
+              "confidence": 0.8
+            },
+            {
+              "start": "등간격 노드 함수표",
+              "target": "구간 [-4, 4]",
+              "type": "part_of",
+              "source_chunk_id": 0,
+              "description": "주어진 함수표는 구간 [-4,4] 내에서 정의됨",
+              "evidence": "15. 구간 $-4 \\leqslant x \\leqslant 4$ 에서 $f(x)=e^x$ 의 등간격 노드 함수표가 주어졌다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "|(x-x_0)(x-x_1)(x-x_2)| = h^3 |t^3 - t|",
+              "target": "x_0, x_1, x_2",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "원래 다항식 표현은 세 노드 x_0,x_1,x_2의 차를 포함함",
+              "evidence": "여기서 $x_0, x_1, x_2$ 는 간격이 $h$ 인 인접한 세 노드이며 , $\\xi$ 는 이 노드들과 $x$ 를 포함하는 구간 내의 어떤 값입니다 .",
+              "confidence": 0.9
+            },
+            {
+              "start": "오차 허용치 10^{-6}",
+              "target": "M_3",
+              "type": "requires",
+              "source_chunk_id": 2,
+              "description": "오차 상한을 결정하기 위해 세 번째 도함수의 최대값 M_3를 사용함 (허약한 연결)",
+              "evidence": "전체 구간 $[-4, 4]$ 에서 도함수가 가질 수 있는 최댓값 ($M_3$) 은 $x=4$ 일 때 발생합니다 . $$M_3 = \\max |f^{(3)}(x)| = e^4 \\approx 54.59815$$",
+              "confidence": 0.5
+            },
+            {
+              "start": "오차 허용치 10^{-6}",
+              "target": "다항식 부분의 최댓값 = (3/8) h^3",
+              "type": "requires",
+              "source_chunk_id": 3,
+              "description": "오차를 기준으로 h를 결정할 때 다항식 부분의 최대값 식을 이용함 (허약한 연결)",
+              "evidence": "따라서 다항식 부분의 최댓값은 \\frac{3}{8}h^3 이 됩니다 .",
+              "confidence": 0.5
+            },
+            {
+              "start": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "target": "x_0, x_1, x_2",
+              "type": "uses",
+              "source_chunk_id": 1,
+              "description": "오차 항의 다항식 인자들이 세 노드의 차로 구성됨",
+              "evidence": "R_2(x) = \\frac{f^{(3)}(\\xi)}{3!} (x-x_0)(x-x_1)(x-x_2)",
+              "confidence": 0.9
+            },
+            {
+              "start": "다항식 부분의 최댓값 = (3/8) h^3",
+              "target": "보폭 h",
+              "type": "uses",
+              "source_chunk_id": 3,
+              "description": "최댓값 식은 h에 대한 식으로 h를 결정하는 데 사용됨",
+              "evidence": "따라서 다항식 부분의 최댓값은 \\frac{3}{8}h^3 이 됩니다 .",
+              "confidence": 0.9
+            }
+          ]
+        },
+        "heading_path": [
+          "📝  문제  번역",
+          "💡  풀이  과정",
+          "1. 2 차  보간법의  오차  공식",
+          "2. 도함수의  최댓값  구하기",
+          "3. 다항식  부분의  최댓값  구하기",
+          "4. 보폭  $h$ 계산하기"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source": "block_002",
+        "target": "block_001",
+        "type": "PREREQUISITE_OF",
+        "description": "The general n-th interpolation error formula and the h^{n+1} factor are the theoretical basis for setting up the truncation-error bound and solving for h in the 2nd-order concrete problem.",
+        "confidence": 0.95
+      },
+      {
+        "source": "block_003",
+        "target": "block_001",
+        "type": "PREREQUISITE_OF",
+        "description": "The specific maximal constant for n=2 (3/8 · h^3) supplies the numerical polynomial-factor bound needed to compute the step size h for the 2nd-order example.",
+        "confidence": 0.95
+      },
+      {
+        "source": "block_004",
+        "target": "block_001",
+        "type": "PREREQUISITE_OF",
+        "description": "Knowing where the polynomial factor attains its maximum (central location t = ±0.5 or 0.5) is required to evaluate the worst-case error used in the example's h calculation.",
+        "confidence": 0.9
+      },
+      {
+        "source": "block_002",
+        "target": "block_003",
+        "type": "ELABORATES",
+        "description": "Block 003 gives concrete low-degree constants that instantiate the general h^{n+1}·g(t) polynomial-part structure introduced in Block 002.",
+        "confidence": 0.9
+      },
+      {
+        "source": "block_002",
+        "target": "block_004",
+        "type": "PREREQUISITE_OF",
+        "description": "The parity-based central-node/maximum-location result in Block 004 is derived from the polynomial factor ∏(x-x_i) and its symmetry properties explained in Block 002.",
+        "confidence": 0.85
+      },
+      {
+        "source": "block_004",
+        "target": "block_003",
+        "type": "PREREQUISITE_OF",
+        "description": "Determining the numerical maxima for each n (the constants in Block 003) requires the central/adjacent-node maximum-location rule from Block 004.",
+        "confidence": 0.9
+      }
+    ],
+    "paths": [
+      [
+        "block_002",
+        "block_004",
+        "block_003",
+        "block_001"
+      ],
+      [
+        "block_002",
+        "block_003",
+        "block_001"
+      ],
+      [
+        "block_002",
+        "block_004",
+        "block_001"
+      ]
+    ],
+    "ordering_rationale": "Start with the general error formula (block_002) to set the theoretical framework, then learn the symmetry/maximum-location rule (block_004) which informs how to find maxima, next study concrete low-degree constants (block_003) to get numeric bounds, and finally apply these to the specific 2nd-order example (block_001). Shorter paths skip the detailed derivations when only the n=2 numeric result is needed."
+  },
+  "source_name": "12_numerical_analysis_오차한계.pdf",
+  "source_path": "C:\\Users\\hwoos\\Desktop\\taco\\GraphNode_AI\\microscope\\tmp\\tmpm9mdzr5s.pdf",
+  "token_usage": {
+    "provider_name": "openai",
+    "model_name": "gpt-5-mini",
+    "records": [
+      {
+        "stage": "extraction",
+        "call_index": 1,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 4571,
+        "output_tokens": 4059,
+        "total_tokens": 8630,
+        "system_tokens": 3401,
+        "user_tokens": 1170,
+        "response_tokens": 4059,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {
+          "batch_index": 1,
+          "batch_start": 0,
+          "batch_end": 5
+        }
+      },
+      {
+        "stage": "standardization",
+        "call_index": 2,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 417,
+        "output_tokens": 1,
+        "total_tokens": 418,
+        "system_tokens": 28,
+        "user_tokens": 389,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 3,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 319,
+        "output_tokens": 1,
+        "total_tokens": 320,
+        "system_tokens": 28,
+        "user_tokens": 291,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "extraction",
+        "call_index": 4,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 4232,
+        "output_tokens": 2399,
+        "total_tokens": 6631,
+        "system_tokens": 3401,
+        "user_tokens": 831,
+        "response_tokens": 2399,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {
+          "batch_index": 1,
+          "batch_start": 0,
+          "batch_end": 4
+        }
+      },
+      {
+        "stage": "standardization",
+        "call_index": 5,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 296,
+        "output_tokens": 1,
+        "total_tokens": 297,
+        "system_tokens": 28,
+        "user_tokens": 268,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 6,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 351,
+        "output_tokens": 53,
+        "total_tokens": 404,
+        "system_tokens": 28,
+        "user_tokens": 323,
+        "response_tokens": 53,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "extraction",
+        "call_index": 7,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 4110,
+        "output_tokens": 3503,
+        "total_tokens": 7613,
+        "system_tokens": 3401,
+        "user_tokens": 709,
+        "response_tokens": 3503,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {
+          "batch_index": 1,
+          "batch_start": 0,
+          "batch_end": 3
+        }
+      },
+      {
+        "stage": "standardization",
+        "call_index": 8,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 305,
+        "output_tokens": 1,
+        "total_tokens": 306,
+        "system_tokens": 28,
+        "user_tokens": 277,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 9,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 311,
+        "output_tokens": 1,
+        "total_tokens": 312,
+        "system_tokens": 28,
+        "user_tokens": 283,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 10,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 313,
+        "output_tokens": 1,
+        "total_tokens": 314,
+        "system_tokens": 28,
+        "user_tokens": 285,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 11,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 381,
+        "output_tokens": 33,
+        "total_tokens": 414,
+        "system_tokens": 28,
+        "user_tokens": 353,
+        "response_tokens": 33,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "extraction",
+        "call_index": 12,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 3917,
+        "output_tokens": 3702,
+        "total_tokens": 7619,
+        "system_tokens": 3401,
+        "user_tokens": 516,
+        "response_tokens": 3702,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {
+          "batch_index": 1,
+          "batch_start": 0,
+          "batch_end": 3
+        }
+      },
+      {
+        "stage": "standardization",
+        "call_index": 13,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 316,
+        "output_tokens": 1,
+        "total_tokens": 317,
+        "system_tokens": 28,
+        "user_tokens": 288,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 14,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 345,
+        "output_tokens": 1,
+        "total_tokens": 346,
+        "system_tokens": 28,
+        "user_tokens": 317,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      },
+      {
+        "stage": "standardization",
+        "call_index": 15,
+        "provider_name": "openai",
+        "model_name": "gpt-5-mini",
+        "input_tokens": 380,
+        "output_tokens": 1,
+        "total_tokens": 381,
+        "system_tokens": 28,
+        "user_tokens": 352,
+        "response_tokens": 1,
+        "usage_source": "estimated",
+        "max_tokens": 8000,
+        "temperature": 0.0,
+        "metadata": {}
+      }
+    ],
+    "summary": {
+      "extraction": {
+        "stage": "extraction",
+        "calls": 4,
+        "input_tokens": 16830,
+        "output_tokens": 13663,
+        "total_tokens": 30493,
+        "estimated_calls": 4,
+        "provider_reported_calls": 0
+      },
+      "standardization": {
+        "stage": "standardization",
+        "calls": 11,
+        "input_tokens": 3734,
+        "output_tokens": 95,
+        "total_tokens": 3829,
+        "estimated_calls": 11,
+        "provider_reported_calls": 0
+      }
+    }
+  }
+}
