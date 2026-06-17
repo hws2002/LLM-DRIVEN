@@ -1,0 +1,17 @@
+test
+tests
+node
+node.js
+chatgpt
+gpt
+gpt-4
+a/b
+x->0
+lim
+ci/cd
+api
+sql
+nosql
+kubernetes
+git
+cnn

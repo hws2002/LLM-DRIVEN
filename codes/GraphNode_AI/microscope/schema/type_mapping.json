@@ -1,0 +1,142 @@
+{
+  "node_types": {
+    "Concept": {
+      "ko": "Concept",
+      "zh": "概念"
+    },
+    "Theory": {
+      "ko": "Theory",
+      "zh": "理论"
+    },
+    "Method": {
+      "ko": "Method",
+      "zh": "方法"
+    },
+    "Algorithm": {
+      "ko": "Algorithm",
+      "zh": "算法"
+    },
+    "Theorem": {
+      "ko": "Theorem",
+      "zh": "定理"
+    },
+    "Model": {
+      "ko": "Model",
+      "zh": "模型"
+    },
+    "Formula": {
+      "ko": "Formula",
+      "zh": "公式"
+    },
+    "Problem": {
+      "ko": "Problem",
+      "zh": "问题"
+    },
+    "Person": {
+      "ko": "Person",
+      "zh": "人物"
+    },
+    "Organization": {
+      "ko": "Organization",
+      "zh": "组织"
+    },
+    "Event": {
+      "ko": "Event",
+      "zh": "事件"
+    },
+    "Place": {
+      "ko": "Place",
+      "zh": "地点"
+    },
+    "Period": {
+      "ko": "Period",
+      "zh": "时代"
+    },
+    "Document": {
+      "ko": "Document",
+      "zh": "文献"
+    },
+    "Tool": {
+      "ko": "Tool",
+      "zh": "工具"
+    },
+    "Example": {
+      "ko": "Example",
+      "zh": "示例"
+    }
+  },
+  "edge_types": {
+    "defines": {
+      "ko": "Defines",
+      "zh": "定义"
+    },
+    "uses": {
+      "ko": "Uses",
+      "zh": "使用"
+    },
+    "part_of": {
+      "ko": "Part of",
+      "zh": "组成部分"
+    },
+    "causes": {
+      "ko": "Causes",
+      "zh": "导致"
+    },
+    "influences": {
+      "ko": "Influences",
+      "zh": "影响"
+    },
+    "leads_to": {
+      "ko": "Leads to",
+      "zh": "导向"
+    },
+    "solves": {
+      "ko": "Solves",
+      "zh": "解决"
+    },
+    "improves": {
+      "ko": "Improves",
+      "zh": "改进"
+    },
+    "requires": {
+      "ko": "Requires",
+      "zh": "需要"
+    },
+    "prerequisite_of": {
+      "ko": "Prerequisite of",
+      "zh": "前提"
+    },
+    "derives_from": {
+      "ko": "Derives from",
+      "zh": "派生自"
+    },
+    "equivalent_to": {
+      "ko": "Equivalent to",
+      "zh": "等同于"
+    },
+    "example_of": {
+      "ko": "Example of",
+      "zh": "示例为"
+    },
+    "contrasts_with": {
+      "ko": "Contrasts with",
+      "zh": "对比于"
+    },
+    "applied_in": {
+      "ko": "Applied in",
+      "zh": "应用于"
+    },
+    "occurs_in": {
+      "ko": "Occurs in",
+      "zh": "发生于"
+    },
+    "happens_during": {
+      "ko": "Happens during",
+      "zh": "发生在"
+    },
+    "proposed_by": {
+      "ko": "Proposed by",
+      "zh": "由...提出"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+# Korean common suffixes / particles to strip in fallback tokenizer
+# one per line, no spaces

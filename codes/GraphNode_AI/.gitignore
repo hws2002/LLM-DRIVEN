@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment variables
+# 루트 .env 하나만 사용 — 서비스별 .env 파일 생성 금지
+.env
+.env.local
+**/.env
+**/.env.local
+
+# ML Models and Cache
+models_cache/
+*.pkl
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# IDE
+.vscode/
+.claude/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+*.log
+logs/
+
+# Data and Archive
+archive/
+input_data/macro/conversations.json
+
+
+#add_node
+add_node/lib/
+add_node/test/
+add_node/output/
+input_data/conversation_*.json
+list_long_conversations.py
+test_import.py
+
+#microscope
+chroma_db/
+chroma_model_cache/
+microscope/debug/
+microscope/output/
+microscope/TODO.md
+
+# macro
+macro/src/output/
+
+output_data/microscope/prev/
+
+*.csv
+
+myenv/
+
+tests/trivial/
+!input_data/microscope/
+microscope/tmp/
+output_tmp/

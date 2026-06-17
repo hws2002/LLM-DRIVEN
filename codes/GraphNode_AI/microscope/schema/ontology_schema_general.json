@@ -1,0 +1,189 @@
+{
+  "version": "2.0",
+  "node_key": "name",
+  "extraction_policy": {
+    "include_weak_relations": true,
+    "node_density": "Extract ALL significant entities from the text — do not limit yourself to only the most prominent ones. Minor concepts, supporting methods, and secondary tools should also be extracted if mentioned.",
+    "no_self_loops": "Do NOT create an edge where start and target are the same node.",
+    "confidence_note": "Use confidence 0.3-0.5 for weak/indirect relations, 0.7-1.0 for strong/explicit ones. Do NOT omit edges just because confidence is low."
+  },
+  "node_fields": {
+    "name": "string (required, unique)",
+    "type": "string | array<string> (required, one or more of node_types)",
+    "source_chunk_id": "integer (required, chunk index)",
+    "description": "string (optional)",
+    "keywords": "string[] (optional). Up to 2 concise keywords that aid search or disambiguation. Omit if not useful."
+  },
+  "edge_fields": {
+    "start": "string (required, must match a node 'name')",
+    "target": "string (required, must match a node 'name')",
+    "type": "string (required, one of edge_types)",
+    "source_chunk_id": "integer (required, chunk index)",
+    "description": "string (optional). How or why the relationship exists.",
+    "evidence": "string (optional). Verbatim quote from source validating this relationship.",
+    "confidence": "number (0.0-1.0, optional). Use 0.3-0.5 for weak/indirect, 0.7-1.0 for strong/explicit."
+  },
+  "node_types": [
+    {
+      "name": "Concept",
+      "description": "An abstract idea, principle, ideology, or category that cannot be directly executed or applied as a procedure. Use when the node represents a 'what' or 'why', not a 'how'. e.g., 'Entropy', 'Nationalism'. NOT: named procedures or algorithms (->Method), named theoretical frameworks (->Theory)."
+    },
+    {
+      "name": "Theory",
+      "description": "A named theoretical framework or school of thought that explains or predicts phenomena. e.g., 'Darwin's Theory of Evolution', 'Keynesian Economics', 'Structuralism'. NOT: formally proven mathematical/logical statements (->Theorem), specific quantitative representations (->Model), abstract ideas without a formal name (->Concept)."
+    },
+    {
+      "name": "Method",
+      "description": "A named analytical technique, experimental approach, or non-computational procedure. e.g., 'Regression Analysis', 'Case Study Method', 'Discourse Analysis', 'Double-Blind Trial'. NOT: computational algorithms with well-defined steps (->Algorithm), abstract concepts (->Concept)."
+    },
+    {
+      "name": "Algorithm",
+      "description": "A named computational or mathematical step-by-step procedure with well-defined inputs and outputs. e.g., 'Dijkstra's Algorithm', 'Quicksort', 'Backpropagation', 'Gaussian Elimination'. NOT: broad analytical techniques (->Method), abstract concepts (->Concept)."
+    },
+    {
+      "name": "Theorem",
+      "description": "A formally proven or provable statement in mathematics, CS, or formal sciences. e.g., 'CAP Theorem', 'Pythagorean Theorem', 'Coase Theorem', 'Pumping Lemma'. NOT: broad theoretical frameworks (->Theory), abstract ideas (->Concept)."
+    },
+    {
+      "name": "Model",
+      "description": "A simplified formal representation of a system or phenomenon used for prediction or simulation. e.g., 'IS-LM Model', 'Solow Growth Model', 'BERT', 'Standard Model of Physics'. NOT: broad theoretical frameworks or schools of thought (->Theory), formally proven statements (->Theorem), step-by-step procedures (->Algorithm/Method)."
+    },
+    {
+      "name": "Formula",
+      "description": "A mathematical equation, formal symbolic expression, or quantitative rule. e.g., 'E = mc²', 'Bayes' Rule', 'Black-Scholes Equation'"
+    },
+    {
+      "name": "Problem",
+      "description": "A challenge, limitation, conflict, bottleneck, or open question in any domain. e.g., 'Overfitting', 'Income Inequality', 'Climate Change'"
+    },
+    {
+      "name": "Person",
+      "description": "A researcher, scientist, historical figure, politician, or author associated with a concept, discovery, or event. e.g., 'Alan Turing', 'Karl Marx', 'Marie Curie'"
+    },
+    {
+      "name": "Organization",
+      "description": "A named institution, company, government body, political party, state, empire, or international group. e.g., 'United Nations', 'Chinese Communist Party'. NOT: software libraries or frameworks (->Tool)."
+    },
+    {
+      "name": "Event",
+      "description": "A specific historical, political, social, or scientific occurrence at a defined point or period. e.g., 'French Revolution', 'World War II', 'Moon Landing', '2008 Financial Crisis'"
+    },
+    {
+      "name": "Place",
+      "description": "A geographic location, region, or territory. e.g., 'Paris', 'Korean Peninsula', 'Silicon Valley'. NOT: political entities acting as agents (->Organization)."
+    },
+    {
+      "name": "Period",
+      "description": "A historical era, timeframe, or defined phase. e.g., 'Cold War', 'Industrial Revolution', 'Joseon Dynasty', 'Renaissance'"
+    },
+    {
+      "name": "Document",
+      "description": "A named law, treaty, declaration, policy, academic paper, or formal text with concrete impact. e.g., 'Treaty of Versailles', 'Magna Carta', 'GDPR'. NOT: project titles, course assignments, or topic names (->Concept)."
+    },
+    {
+      "name": "Tool",
+      "description": "A specific software, library, framework, instrument, dataset, or named resource. e.g., 'TensorFlow', 'scikit-learn'. NOT: organizations or institutions (->Organization)."
+    },
+    {
+      "name": "Example",
+      "description": "A concrete, worked instance explicitly used to illustrate a Concept, Theory, or Method. Use only when the source presents it as an example or case study."
+    }
+  ],
+  "edge_types": [
+    {
+      "name": "defines",
+      "description": "start provides a formal definition of or introduces target as a concept. Direction: DEFINER → defines → DEFINED. NOT: founding or establishing an organization/movement (->leads_to).",
+      "example": "Newton → defines → Law of Gravity"
+    },
+    {
+      "name": "uses",
+      "description": "start depends on or applies target in its operation or practice. Direction: USER → uses → USED. Do NOT use when start is applied within a domain (->applied_in).",
+      "example": "Regression Analysis → uses → Least Squares Method"
+    },
+    {
+      "name": "part_of",
+      "description": "start is a sub-element or component of target. Direction: SMALLER → part_of → LARGER. Never reverse.",
+      "example": "Senate → part_of → U.S. Congress"
+    },
+    {
+      "name": "causes",
+      "description": "start directly triggers target. Direction: CAUSE → causes → EFFECT. Never reverse. Use only for direct, immediate causation.",
+      "example": "Economic Crisis → causes → Unemployment",
+      "forbidden_pairs": [["any", "Person"]]
+    },
+    {
+      "name": "influences",
+      "description": "start indirectly shapes target without being a direct cause. Direction: INFLUENCER → influences → INFLUENCED. Use when the effect is gradual or indirect.",
+      "example": "Enlightenment → influences → French Revolution"
+    },
+    {
+      "name": "leads_to",
+      "description": "start progresses toward target sequentially. Use for process flows or step-by-step pipelines where one step produces the next. Direction: EARLIER → leads_to → LATER. Do NOT use for indirect influence (->influences).",
+      "example": "Hypothesis → leads_to → Experiment",
+      "forbidden_pairs": [["any", "Person"], ["Example", "any"]]
+    },
+    {
+      "name": "solves",
+      "description": "start fully addresses or resolves target (a Problem). Use 'improves' if only partial. Direction: SOLUTION → solves → PROBLEM.",
+      "example": "Vaccination → solves → Smallpox Epidemic"
+    },
+    {
+      "name": "improves",
+      "description": "start reduces a limitation of target without fully solving it. Direction: IMPROVEMENT → improves → TARGET.",
+      "example": "Deep Learning → improves → Traditional Machine Learning"
+    },
+    {
+      "name": "requires",
+      "description": "start cannot function without target as a hard prerequisite. Direction: DEPENDENT → requires → DEPENDENCY. Never reverse.",
+      "example": "Experiment → requires → Control Group"
+    },
+    {
+      "name": "prerequisite_of",
+      "description": "Understanding start is pedagogically necessary before learning target. Direction: EARLIER KNOWLEDGE → prerequisite_of → LATER KNOWLEDGE.",
+      "example": "Algebra → prerequisite_of → Calculus",
+      "forbidden_pairs": [["Example", "any"]]
+    },
+    {
+      "name": "derives_from",
+      "description": "start is mathematically, logically, or historically derived from target. Direction: DERIVED → derives_from → SOURCE.",
+      "example": "Special Relativity → derives_from → Lorentz Transformation"
+    },
+    {
+      "name": "equivalent_to",
+      "description": "start and target express the same idea in different forms. Bidirectional — add only one direction.",
+      "example": "Natural Selection → equivalent_to → Survival of the Fittest"
+    },
+    {
+      "name": "example_of",
+      "description": "start is a concrete instantiation of target. Direction: INSTANCE → example_of → GENERAL.",
+      "example": "French Revolution → example_of → Social Revolution"
+    },
+    {
+      "name": "contrasts_with",
+      "description": "start and target differ in approach, assumptions, or trade-offs. Bidirectional — add only one direction.",
+      "example": "Capitalism → contrasts_with → Socialism"
+    },
+    {
+      "name": "applied_in",
+      "description": "start (a Concept, Theory, or Method) is practically used within a domain, field, or real-world context (not another Method or Tool). Direction: CONCEPT/THEORY/METHOD → applied_in → DOMAIN/FIELD/CONTEXT. Do NOT use when target is another Method or Tool (->uses).",
+      "example": "Game Theory → applied_in → Political Science"
+    },
+    {
+      "name": "occurs_in",
+      "description": "Event takes place at a specific Place. Direction: EVENT → occurs_in → PLACE.",
+      "example": "Battle of Waterloo → occurs_in → Belgium",
+      "forbidden_pairs": [["any", "Person"], ["Person", "any"]]
+    },
+    {
+      "name": "happens_during",
+      "description": "Event or sub-event occurs within the timeframe of a broader Period or larger Event. Direction: SUB-EVENT → happens_during → BROADER PERIOD/EVENT.",
+      "example": "D-Day Invasion → happens_during → World War II",
+      "forbidden_pairs": [["any", "Person"], ["Person", "any"]]
+    },
+    {
+      "name": "proposed_by",
+      "description": "start (Theory/Model/Theorem/Algorithm) was developed or proposed by target (Person). Direction: THEORY/MODEL/THEOREM → proposed_by → PERSON.",
+      "example": "General Relativity → proposed_by → Einstein"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "microscope"
+version = "0.1.0"
+description = "Microscope knowledge graph + RAG utilities"
+readme = "microscope/README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "chromadb>=1.4.1",
+  "neo4j>=6.1.0",
+  "openai>=2.15.0",
+  "tiktoken>=0.12.0",
+  "python-dotenv>=1.2.1",
+  "litellm>=1.40.0",
+  "langchain-core>=1.2.7",
+  "langchain-community>=0.4.1",
+  "langchain-text-splitters>=1.1.0",
+  "pypdf>=6.6.0",
+]
+
+[project.scripts]
+microscope-pipeline = "microscope.call:main"
+microscope-rag-query = "microscope.services.vector_rag_query_service:main"
+microscope-query = "microscope.services.hybrid_rag_query_service:main"
+microscope-explain-path = "microscope.services.explain_path_service:main"
+microscope-entities-search = "microscope.services.entities_search_service:main"
+microscope-neighbors = "microscope.services.neighbors_service:main"
+microscope-synthesize = "microscope.services.synthesize_service:main"
+microscope-related-questions = "microscope.services.related_questions_service:main"
+microscope-migrate-chroma = "microscope.debug.migrate_chroma_metadata_lists:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["microscope*"]
+
+[tool.setuptools.package-data]
+microscope = [
+  "schema/*.json",
+  "prompts/*.py",
+  "config.toml",
+  ".env.example",
+]
